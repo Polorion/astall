@@ -1,0 +1,48 @@
+.bodyLeft {
+  display: flex;
+  align-items: center;
+}
+.img {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  margin-right: 5px;
+}
+.bodyCenter {
+  display: flex;
+}
+.bottomPanel {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.name {
+  color: #dad5d5;
+}
+.imgName {
+  display: flex;
+}
+.manaSpell {
+  margin-left: 20px;
+  color: black;
+  width: 20px;
+  height: 20px;
+  background-color: #b3b9b3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enemy {
+  margin-bottom: 0px;
+  justify-content: flex-start;
+  .img {
+    margin-right: 0px;
+  }
+  .manaSpell {
+    margin-left: 0px;
+  }
+  .manaSpell {
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,28 @@
+@import "/src/scss/vars";
+.body {
+  display: flex;
+  background-color: #282c34;
+  min-height: 200px;
+}
+.bodyCenter {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -5px;
+}
+.elements {
+  flex: 0 0 15%;
+  margin-right: 10px;
+}
+.cards {
+  flex: 1 1 40%;
+  margin-right: 10px;
+}
+.description {
+  flex: 0 0 40%;
+}
+.info {
+  padding: 5px;
+  display: flex;
+  width: 100%;
+  background-color: #706868;
+}

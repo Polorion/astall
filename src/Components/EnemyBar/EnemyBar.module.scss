@@ -1,0 +1,84 @@
+@import "src/scss/vars";
+.enemyMagick {
+  display: flex;
+}
+.body {
+  background-color: $grayBG;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+.boardBody {
+  flex: 0 0 70%;
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  position: relative;
+
+  .hp {
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    right: 0;
+    background-color: $bgStats;
+    color: $white;
+    padding: 5px;
+    font-weight: 900;
+    font-size: 30px;
+  }
+  p {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    color: $white;
+    font-weight: 900;
+
+    background-color: $blackTrans;
+    transform: translate(-50%, -0%);
+    font-size: clamp(9px, 2cqi, 10cqi);
+  }
+}
+
+.controlBtn {
+  align-items: center;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+}
+.damageHP {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.subHP {
+  font-size: 30px;
+  font-weight: 900;
+  padding: 5px;
+  background-color: $black;
+  border-radius: 100%;
+  letter-spacing: 0px;
+  color: $damageCard;
+  animation-duration: 2s;
+  animation-name: hpDamage;
+}
+@keyframes hpDamage {
+  0% {
+    transform: translateY(30px) translate(-50%, -50%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px) translate(-50%, -50%);
+    opacity: 0;
+  }
+}

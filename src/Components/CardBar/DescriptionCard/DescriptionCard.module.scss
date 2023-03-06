@@ -1,0 +1,31 @@
+@import "/src/scss/vars";
+.body {
+  display: flex;
+  align-items: flex-start;
+}
+.img {
+  margin-right: 10px;
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    margin-bottom: 10px;
+  }
+  p {
+    color: $gold;
+  }
+}
+.info {
+  flex: 1 1 70%;
+}
+.price {
+  margin-bottom: 10px;
+  color: $gold;
+  font-size: clamp(9px, 1.5cqi, 10cqi);
+}
+.description {
+  font-size: clamp(9px, 1.5cqi, 10cqi);
+  color: #dad5d5;
+}

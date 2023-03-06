@@ -1,0 +1,12 @@
+@import "src/scss/vars";
+button {
+  background-color: $grayBtn;
+  padding: 5px 10px;
+  width: 50px;
+  height: 30px;
+  margin-bottom: 10px;
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
