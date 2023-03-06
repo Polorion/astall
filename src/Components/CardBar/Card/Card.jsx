@@ -13,9 +13,9 @@ const Card = ({ card, active }) => {
     <div className={S.body}>
       <div className={`${S.img} ${active && S.active}`} onClick={handler}>
         <img src={card.img} alt="" />
-        <div className={`${S.hp} ${S.stats}`}>1</div>
-        <div className={`${S.attack} ${S.stats}`}>2</div>
-        <div className={`${S.price} ${S.stats}`}>3</div>
+        <div className={`${S.hp} ${S.stats}`}>{card.hp}</div>
+        <div className={`${S.attack} ${S.stats}`}>{card.attack}</div>
+        <div className={`${S.price} ${S.stats}`}>{card.price}</div>
       </div>
     </div>
   );

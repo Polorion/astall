@@ -221,6 +221,19 @@ const SpellBookSlice = createSlice({
     setElement(state, { payload }) {
       state.choiceElement = payload;
     },
+
+    setManaElement(state, { payload }) {
+      state.book = state.book.map((el) => {
+        if (el.name === payload.name) {
+          return {
+            ...el,
+            count: el.count - payload.count,
+          };
+        } else {
+          return el;
+        }
+      });
+    },
     setActiveCard(state, { payload }) {
       state.choiceCard = payload;
     },
@@ -238,6 +251,6 @@ const SpellBookSlice = createSlice({
   },
 });
 
-export const { test, setElement, setActiveCard, setActive } =
+export const { test, setElement, setActiveCard, setActive, setManaElement } =
   SpellBookSlice.actions;
 export default SpellBookSlice.reducer;
