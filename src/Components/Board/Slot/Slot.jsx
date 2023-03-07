@@ -7,7 +7,6 @@ import {
   deathComputerSlot,
   idDamage,
 } from "../../../store/redux/ComputerSlice";
-import { current } from "@reduxjs/toolkit";
 import { setInfoCard } from "../../../store/redux/PlayerSlice";
 
 export const Slot = React.memo(
@@ -17,7 +16,8 @@ export const Slot = React.memo(
     const refHP = useRef();
     const dispatch = useDispatch();
     useEffect(() => {
-      if (props.el.isAttack) {
+      console.log(props.el.isBusy);
+      if (props.el.isAttack && props.el.isBusy !== null) {
         dispatch(idDamage({ id: props.el.id, attack: props.el.isBusy.attack }));
       }
     }, [props.el.isAttack]);

@@ -7,7 +7,7 @@ import { setInfoCard } from "../../../store/redux/PlayerSlice";
 const Card = ({ card, active, currentMana }) => {
   const dispatch = useDispatch();
   const handler = () => {
-    dispatch(setActiveCard(card));
+    currentMana >= card.price && dispatch(setActiveCard(card));
     dispatch(setInfoCard(card));
   };
 

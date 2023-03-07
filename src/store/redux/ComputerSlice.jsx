@@ -35,10 +35,12 @@ const ComputerSlice = createSlice({
           description:
             "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
         },
+        isAttack: false,
       },
       {
         id: 2,
         isBusy: null,
+        isAttack: false,
       },
       {
         id: 3,
@@ -53,19 +55,26 @@ const ComputerSlice = createSlice({
           description:
             "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
         },
+        isAttack: false,
       },
       {
         id: 4,
         isBusy: null,
+        isAttack: false,
       },
       {
         id: 5,
         isBusy: null,
+        isAttack: false,
       },
     ],
-    attack: false,
   },
   reducers: {
+    setAnimationComputer(state, { payload }) {
+      state.board = state.board.map((el) => {
+        return { ...el, isAttack: payload.type };
+      });
+    },
     idDamage(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload.id && el.isBusy === null) {
@@ -96,5 +105,6 @@ const ComputerSlice = createSlice({
   },
 });
 
-export const { idDamage, deathComputerSlot } = ComputerSlice.actions;
+export const { idDamage, deathComputerSlot, setAnimationComputer } =
+  ComputerSlice.actions;
 export default ComputerSlice.reducer;

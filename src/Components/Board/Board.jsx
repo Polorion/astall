@@ -18,15 +18,20 @@ const Board = ({ board, enemy }) => {
   useEffect(() => {
     refElement.current = activeElement;
   }, [activeElement]);
-  ref.current = activeCard;
+  useEffect(() => {
+    ref.current = activeCard;
+  }, [activeCard]);
+
   const dispatch = useDispatch();
 
   const handler = (id) => {
-    dispatch(
-      setManaElement({ name: refElement.current, count: ref.current.price })
-    );
-    dispatch(setCardInBoard({ id, activeCard: ref.current }));
-    dispatch(setActiveCard(null));
+    if (ref.current !== null) {
+      dispatch(
+        setManaElement({ name: refElement.current, count: ref.current.price })
+      );
+      dispatch(setCardInBoard({ id, activeCard: ref.current }));
+      dispatch(setActiveCard(null));
+    }
   };
 
   return (

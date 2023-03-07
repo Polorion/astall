@@ -8,7 +8,6 @@ const SpellElement = ({ Element, name, mana, enemy }) => {
   const refMana = useRef(mana);
   const [addMana, setAddMana] = useState({ mana: mana, visible: false });
   const [subMana, setSubMana] = useState({ mana: mana, visible: false });
-  const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (refMana.current > mana) {
       setSubMana({ mana: refMana.current - mana, visible: true });
@@ -24,8 +23,6 @@ const SpellElement = ({ Element, name, mana, enemy }) => {
     }
     refMana.current = mana;
   }, [mana]);
-  console.log(addMana);
-  console.log(subMana);
   const dispatch = useDispatch();
   const handler = () => {
     {

@@ -62,7 +62,7 @@ const PlayerSlice = createSlice({
       state.infoCard = payload;
     },
 
-    setAnimation(state, { payload }) {
+    setAnimationPlayer(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload.id) {
           return { ...el, isAttack: payload.type };
@@ -79,6 +79,10 @@ const PlayerSlice = createSlice({
   },
 });
 
-export const { setCardInBoard, setAnimation, setFalseAnimation, setInfoCard } =
-  PlayerSlice.actions;
+export const {
+  setCardInBoard,
+  setAnimationPlayer,
+  setFalseAnimation,
+  setInfoCard,
+} = PlayerSlice.actions;
 export default PlayerSlice.reducer;
