@@ -8,6 +8,7 @@ import {
   idDamage,
 } from "../../../store/redux/ComputerSlice";
 import { current } from "@reduxjs/toolkit";
+import { setInfoCard } from "../../../store/redux/PlayerSlice";
 
 export const Slot = React.memo(
   (props) => {
@@ -58,6 +59,9 @@ export const Slot = React.memo(
     }
     return (
       <div
+        onClick={() => {
+          dispatch(setInfoCard(props.el.isBusy));
+        }}
         className={`${S.slot} ${props.el.isAttack && S.go} ${
           isDeath && S.death
         } `}

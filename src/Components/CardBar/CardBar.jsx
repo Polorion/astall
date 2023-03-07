@@ -11,7 +11,13 @@ const CardBar = () => {
   const spellBook = useSelector((state) => state.spellBook.book);
   const choiceElement = useSelector((state) => state.spellBook.choiceElement);
   const choiceCard = useSelector((state) => state.spellBook.choiceCard);
+  const infoCard = useSelector((state) => state.player.infoCard);
+
   const [spellBookActive, setSpellBookActive] = useState(null);
+  const [currentMana, setCurrentMana] = useState();
+  useEffect(() => {
+    setCurrentMana(spellBook.find((el) => el.name === choiceElement).count);
+  });
   useEffect(() => {
     setSpellBookActive(spellBook.find((el) => el.name === choiceElement));
   }, [choiceElement]);
@@ -40,6 +46,7 @@ const CardBar = () => {
                     key={el.name}
                     card={el}
                     active={el.id === choiceCard?.id}
+                    currentMana={currentMana}
                   />
                 );
               })}
@@ -47,7 +54,7 @@ const CardBar = () => {
           <div className={S.bodyRight}></div>
         </div>
         <div className={S.description}>
-          {choiceCard && <DescriptionCard card={choiceCard} />}
+          {infoCard && <DescriptionCard card={infoCard} />}
         </div>
       </div>
     </div>

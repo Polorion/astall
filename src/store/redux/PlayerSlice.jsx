@@ -6,6 +6,7 @@ const PlayerSlice = createSlice({
   initialState: {
     name: "PoloRioN",
     avatar: avatar,
+    infoCard: null,
     hp: 10,
     board: [
       {
@@ -57,6 +58,10 @@ const PlayerSlice = createSlice({
         });
       }
     },
+    setInfoCard(state, { payload }) {
+      state.infoCard = payload;
+    },
+
     setAnimation(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload.id) {
@@ -74,6 +79,6 @@ const PlayerSlice = createSlice({
   },
 });
 
-export const { setCardInBoard, setAnimation, setFalseAnimation } =
+export const { setCardInBoard, setAnimation, setFalseAnimation, setInfoCard } =
   PlayerSlice.actions;
 export default PlayerSlice.reducer;

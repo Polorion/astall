@@ -1,3 +1,4 @@
+@import "src/scss/vars";
 .bodyLeft {
   display: flex;
   align-items: center;
@@ -31,6 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .enemy {
@@ -44,5 +46,35 @@
   }
   .manaSpell {
     margin-right: 10px;
+  }
+}
+.setMana {
+  position: absolute;
+  white-space: nowrap;
+  top: 0;
+  right: 25px;
+  font-weight: 700;
+  animation-duration: 2s;
+  animation-name: hpDamage;
+}
+.green {
+  color: $green;
+}
+.red {
+  color: $damageCard;
+}
+
+@keyframes hpDamage {
+  0% {
+    transform: translateY(0px) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    transform: translateY(-3px) scale(0.5);
+    opacity: 0;
   }
 }

@@ -2,7 +2,7 @@ import * as React from "react";
 import S from "./Board.module.scss";
 import stub from "../../access/img/zaglushka.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { setCardInBoard } from "../../store/redux/PlayerSlice";
+import { setCardInBoard, setInfoCard } from "../../store/redux/PlayerSlice";
 import {
   setActiveCard,
   setManaElement,
@@ -13,12 +13,18 @@ import { useEffect, useRef } from "react";
 const Board = ({ board, enemy }) => {
   const activeCard = useSelector((state) => state.spellBook.choiceCard);
   const activeElement = useSelector((state) => state.spellBook.choiceElement);
-  const ref = useRef(activeCard);
+  const refElement = useRef(activeElement);
+  const ref = useRef();
+  useEffect(() => {
+    refElement.current = activeElement;
+  }, [activeElement]);
   ref.current = activeCard;
   const dispatch = useDispatch();
 
   const handler = (id) => {
-    dispatch(setManaElement({ name: activeElement, count: ref.current.price }));
+    dispatch(
+      setManaElement({ name: refElement.current, count: ref.current.price })
+    );
     dispatch(setCardInBoard({ id, activeCard: ref.current }));
     dispatch(setActiveCard(null));
   };

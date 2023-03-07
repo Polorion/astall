@@ -12,6 +12,9 @@
 .active {
   border: 2px solid red;
 }
+.disable {
+  opacity: 0.2;
+}
 .body {
   flex: 0 0 25%;
   height: 100px;

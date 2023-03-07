@@ -10,13 +10,14 @@ const SpellBookSlice = createSlice({
       {
         name: "огонь",
         count: 10,
+        addMana: 1,
         cards: [
           {
             name: "ragnaros",
             isActive: false,
             spell: null,
             attack: 10,
-            price: 5,
+            price: 1,
             id: 1,
             hp: 10,
             img: ragnaros,
@@ -28,7 +29,7 @@ const SpellBookSlice = createSlice({
             isActive: false,
             spell: null,
             attack: 10,
-            price: 5,
+            price: 2,
             id: 2,
             hp: 10,
             img: ragnaros,
@@ -40,7 +41,7 @@ const SpellBookSlice = createSlice({
             isActive: false,
             spell: null,
             attack: 10,
-            price: 5,
+            price: 3,
             id: 3,
             hp: 10,
             img: ragnaros,
@@ -52,7 +53,7 @@ const SpellBookSlice = createSlice({
             isActive: false,
             spell: null,
             attack: 10,
-            price: 5,
+            price: 4,
             id: 4,
             hp: 10,
             img: ragnaros,
@@ -76,7 +77,7 @@ const SpellBookSlice = createSlice({
             isActive: false,
             spell: null,
             attack: 10,
-            price: 5,
+            price: 6,
             id: 6,
             hp: 10,
             img: ragnaros,
@@ -88,7 +89,7 @@ const SpellBookSlice = createSlice({
             isActive: false,
             spell: null,
             attack: 10,
-            price: 5,
+            price: 7,
             id: 7,
             hp: 10,
             img: ragnaros,
@@ -100,7 +101,7 @@ const SpellBookSlice = createSlice({
             isActive: false,
             spell: null,
             attack: 10,
-            price: 5,
+            price: 8,
             img: ragnaros,
             id: 8,
             hp: 10,
@@ -112,9 +113,10 @@ const SpellBookSlice = createSlice({
       {
         name: "вода",
         count: 10,
+        addMana: 1,
         cards: [
           {
-            name: "ragnaros",
+            name: "ragnarosqs",
             isActive: false,
             spell: null,
             attack: 10,
@@ -126,7 +128,7 @@ const SpellBookSlice = createSlice({
               "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
-            name: "ragnaross",
+            name: "ragnarqoss",
             isActive: false,
             spell: null,
             attack: 10,
@@ -138,7 +140,7 @@ const SpellBookSlice = createSlice({
               "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
-            name: "ragnaros2s",
+            name: "ragnaroqs2s",
             isActive: false,
             spell: null,
             attack: 10,
@@ -150,7 +152,7 @@ const SpellBookSlice = createSlice({
               "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
-            name: "ragnaros3s",
+            name: "ragnarqos3s",
             isActive: false,
             spell: null,
             attack: 10,
@@ -162,7 +164,7 @@ const SpellBookSlice = createSlice({
               "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
-            name: "ragnaros4s",
+            name: "ragnarqos4s",
             isActive: false,
             spell: null,
             attack: 10,
@@ -174,7 +176,7 @@ const SpellBookSlice = createSlice({
               "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
-            name: "ragnaros5s",
+            name: "ragnqaros5s",
             isActive: false,
             spell: null,
             attack: 10,
@@ -186,7 +188,7 @@ const SpellBookSlice = createSlice({
               "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
-            name: "ragnaros6s",
+            name: "ragqnaros6s",
             isActive: false,
             spell: null,
             attack: 10,
@@ -198,7 +200,7 @@ const SpellBookSlice = createSlice({
               "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
-            name: "ragnaros7s",
+            name: "ragqnaros7s",
             isActive: false,
             spell: null,
             attack: 10,
@@ -214,12 +216,18 @@ const SpellBookSlice = createSlice({
       {
         name: "земля",
         count: 10,
+        addMana: 1,
       },
     ],
   },
   reducers: {
     setElement(state, { payload }) {
       state.choiceElement = payload;
+    },
+    addMana(state, { payload }) {
+      state.book = state.book.map((el) => {
+        return { ...el, count: el.count + el.addMana };
+      });
     },
 
     setManaElement(state, { payload }) {
@@ -251,6 +259,12 @@ const SpellBookSlice = createSlice({
   },
 });
 
-export const { test, setElement, setActiveCard, setActive, setManaElement } =
-  SpellBookSlice.actions;
+export const {
+  test,
+  setElement,
+  setActiveCard,
+  setActive,
+  setManaElement,
+  addMana,
+} = SpellBookSlice.actions;
 export default SpellBookSlice.reducer;

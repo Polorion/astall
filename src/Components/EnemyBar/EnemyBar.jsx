@@ -9,6 +9,7 @@ import { ReactComponent as Next } from "../../access/img/next.svg";
 import { ReactComponent as Burger } from "../../access/img/burger.svg";
 import { setAnimation, setFalseAnimation } from "../../store/redux/PlayerSlice";
 import { useEffect, useRef, useState } from "react";
+import { addMana } from "../../store/redux/SpellBookSlice";
 
 const EnemyBar = ({ enemy, owner }) => {
   const dispatch = useDispatch();
@@ -16,7 +17,6 @@ const EnemyBar = ({ enemy, owner }) => {
   const refHPOwner = useRef();
   const [damageOwner, setDamageOwner] = useState();
   useEffect(() => {
-    console.log(1);
     if (refHPOwner.current > owner.hp) {
       setDamageOwner({
         damage: refHPOwner.current - owner.hp,
@@ -47,6 +47,7 @@ const EnemyBar = ({ enemy, owner }) => {
     setTimeout(() => {
       dispatch(setFalseAnimation());
     }, numberActiveCarInBoard * 1000);
+    dispatch(addMana());
   };
   return (
     <div>
