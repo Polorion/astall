@@ -71,6 +71,21 @@ const PlayerSlice = createSlice({
         }
       });
     },
+    idDamageComputer(state, { payload }) {
+      state.board = state.board.map((el) => {
+        if (el.id === payload.id && el.isBusy === null) {
+          state.hp = state.hp - payload.attack;
+        }
+        if (el.id === payload.id && el.isBusy) {
+          return {
+            ...el,
+            isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload.attack },
+          };
+        } else {
+          return el;
+        }
+      });
+    },
     setFalseAnimation(state, { payload }) {
       state.board = state.board.map((el) => {
         return { ...el, isAttack: false };
@@ -84,5 +99,6 @@ export const {
   setAnimationPlayer,
   setFalseAnimation,
   setInfoCard,
+  idDamageComputer,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;

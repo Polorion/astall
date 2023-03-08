@@ -7,18 +7,26 @@ import {
   deathComputerSlot,
   idDamage,
 } from "../../../store/redux/ComputerSlice";
-import { setInfoCard } from "../../../store/redux/PlayerSlice";
+import {
+  idDamageComputer,
+  setInfoCard,
+} from "../../../store/redux/PlayerSlice";
 
 export const Slot = React.memo(
   (props) => {
+    console.log(props.el.isAttack);
     const [isDeath, setIsDeath] = useState(false);
     const [damageCard, setDamageCard] = useState();
     const refHP = useRef();
     const dispatch = useDispatch();
     useEffect(() => {
-      console.log(props.el.isBusy);
-      if (props.el.isAttack && props.el.isBusy !== null) {
+      if (props.el.isAttack && props.el.isBusy !== null && !props.enemy) {
         dispatch(idDamage({ id: props.el.id, attack: props.el.isBusy.attack }));
+      }
+      if (props.el.isAttack && props.el.isBusy !== null && props.enemy) {
+        dispatch(
+          idDamageComputer({ id: props.el.id, attack: props.el.isBusy.attack })
+        );
       }
     }, [props.el.isAttack]);
     useEffect(() => {
@@ -62,9 +70,10 @@ export const Slot = React.memo(
         onClick={() => {
           dispatch(setInfoCard(props.el.isBusy));
         }}
-        className={`${S.slot} ${props.el.isAttack && S.go} ${
+        className={`${S.slot} ${props.el.isAttack && !props.enemy && S.go}
+         ${props.el.isAttack && props.enemy && S.goComputer}${
           isDeath && S.death
-        } `}
+        }  `}
       >
         <img className={S.twoBG} src={props.el.isBusy.img} alt="" />
         <div className={`${S.hp} ${S.box}`}>{props.el.isBusy.hp}</div>

@@ -13,12 +13,16 @@ import {
 } from "../../store/redux/PlayerSlice";
 import { useEffect, useRef, useState } from "react";
 import { addMana } from "../../store/redux/SpellBookSlice";
-import { setAnimationComputer } from "../../store/redux/ComputerSlice";
+import {
+  addManaComputer,
+  setAnimationComputer,
+  setFalseAnimationComputer,
+} from "../../store/redux/ComputerSlice";
 
 const EnemyBar = ({ enemy, owner }) => {
   const dispatch = useDispatch();
   const allCardPlayer = useSelector((state) => state.player.board);
-  const allCardComputer = useSelector((state) => state.player.board);
+  const allCardComputer = useSelector((state) => state.computer.board);
   const refHPOwner = useRef();
   const [damageOwner, setDamageOwner] = useState();
   useEffect(() => {
@@ -68,9 +72,9 @@ const EnemyBar = ({ enemy, owner }) => {
       }
     });
     setTimeout(() => {
-      dispatch(setFalseAnimation());
+      dispatch(setFalseAnimationComputer());
     }, numberActiveCarInBoard * 1000);
-    dispatch(addMana());
+    dispatch(addManaComputer());
   };
   return (
     <div>

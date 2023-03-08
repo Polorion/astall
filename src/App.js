@@ -8,8 +8,8 @@ function App() {
   const computer = useSelector((state) => state.computer);
   return (
     <div>
-      <EnemyBar enemy owner={computer} />
-      <EnemyBar owner={player} />
+      <EnemyBar enemy={true} owner={computer} />
+      <EnemyBar enemy={false} owner={player} />
       <CardBar />
     </div>
   );

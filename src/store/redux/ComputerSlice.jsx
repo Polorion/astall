@@ -10,14 +10,17 @@ const ComputerSlice = createSlice({
       {
         name: "огонь",
         count: 5,
+        addMana: 1,
       },
       {
         name: "вода",
         count: 10,
+        addMana: 1,
       },
       {
         name: "земля",
         count: 10,
+        addMana: 1,
       },
     ],
     hp: 10,
@@ -75,6 +78,11 @@ const ComputerSlice = createSlice({
         return { ...el, isAttack: payload.type };
       });
     },
+    setFalseAnimationComputer(state, { payload }) {
+      state.board = state.board.map((el) => {
+        return { ...el, isAttack: false };
+      });
+    },
     idDamage(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload.id && el.isBusy === null) {
@@ -88,6 +96,11 @@ const ComputerSlice = createSlice({
         } else {
           return el;
         }
+      });
+    },
+    addManaComputer(state, { payload }) {
+      state.bookMana = state.bookMana.map((el) => {
+        return { ...el, count: el.count + el.addMana };
       });
     },
     deathComputerSlot(state, { payload }) {
@@ -105,6 +118,11 @@ const ComputerSlice = createSlice({
   },
 });
 
-export const { idDamage, deathComputerSlot, setAnimationComputer } =
-  ComputerSlice.actions;
+export const {
+  idDamage,
+  deathComputerSlot,
+  setAnimationComputer,
+  setFalseAnimationComputer,
+  addManaComputer,
+} = ComputerSlice.actions;
 export default ComputerSlice.reducer;

@@ -36,11 +36,11 @@ const Board = ({ board, enemy }) => {
 
   return (
     <div className={S.body}>
-      <Slot enemy el={board[0]} handler={handler} />
-      <Slot enemy el={board[1]} handler={handler} />
-      <Slot enemy el={board[2]} handler={handler} />
-      <Slot enemy el={board[3]} handler={handler} />
-      <Slot enemy el={board[4]} handler={handler} />
+      <Slot enemy={enemy} el={board[0]} handler={handler} />
+      <Slot enemy={enemy} el={board[1]} handler={handler} />
+      <Slot enemy={enemy} el={board[2]} handler={handler} />
+      <Slot enemy={enemy} el={board[3]} handler={handler} />
+      <Slot enemy={enemy} el={board[4]} handler={handler} />
     </div>
   );
 };
