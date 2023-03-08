@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import ragnaros from "../../access/img/cards/ragnaros.png";
+import goblin from "../../access/img/cards/fire/goblin.png";
+import fireWall from "../../access/img/cards/fire/fireWall.png";
 import water from "../../access/img/cards/WaterElemental.jpg";
 const SpellBookSlice = createSlice({
   name: "spellBook",
@@ -13,28 +15,36 @@ const SpellBookSlice = createSlice({
         addMana: 1,
         cards: [
           {
-            name: "ragnaros",
+            name: "Гоблин берсеркер",
             isActive: false,
             spell: null,
-            attack: 10,
+            attack: 4,
             price: 1,
             id: 1,
-            hp: 10,
-            img: ragnaros,
+            hp: 16,
+            img: goblin,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Гоблин берсеркер\n" +
+              "Огненное существо, стоимость 1\n" +
+              "Атака 4, жизнь 16\n" +
+              "Гоблин берсеркер каждый ход наносит\n" +
+              "2 урона соседним существам хозяина.",
           },
           {
-            name: "ragnaross",
+            name: "Стена огня",
             isActive: false,
             spell: null,
-            attack: 10,
+            attack: 0,
             price: 2,
             id: 2,
-            hp: 10,
-            img: ragnaros,
+            hp: 5,
+            img: fireWall,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Огненное существо, стоимость 2\n" +
+              "Атака 0, жизнь 5\n" +
+              "Когда стена огня призвана,\n" +
+              "она наносит 5 урона всем\n" +
+              "существам противника.",
           },
           {
             name: "ragnaros2s",
@@ -46,7 +56,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: ragnaros,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragnaros3s",
@@ -58,7 +68,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: ragnaros,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragnaros4s",
@@ -70,7 +80,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: ragnaros,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragnaros5s",
@@ -82,7 +92,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: ragnaros,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragnaros6s",
@@ -94,7 +104,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: ragnaros,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragnaros7s",
@@ -106,7 +116,7 @@ const SpellBookSlice = createSlice({
             id: 8,
             hp: 10,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
         ],
       },
@@ -125,7 +135,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: water,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragnarqoss",
@@ -137,7 +147,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: water,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragnaroqs2s",
@@ -149,7 +159,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: water,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragnarqos3s",
@@ -161,7 +171,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: water,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragnarqos4s",
@@ -173,7 +183,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: water,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragnqaros5s",
@@ -185,7 +195,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: water,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragqnaros6s",
@@ -197,7 +207,7 @@ const SpellBookSlice = createSlice({
             hp: 10,
             img: water,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
           {
             name: "ragqnaros7s",
@@ -209,7 +219,7 @@ const SpellBookSlice = createSlice({
             id: 8,
             hp: 10,
             description:
-                "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
           },
         ],
       },
