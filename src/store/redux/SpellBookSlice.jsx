@@ -3,6 +3,7 @@ import ragnaros from "../../access/img/cards/ragnaros.png";
 import goblin from "../../access/img/cards/fire/goblin.png";
 import fireWall from "../../access/img/cards/fire/fireWall.png";
 import firePriest from "../../access/img/cards/fire/firePrist.png";
+import redDragon from "../../access/img/cards/fire/redDragon.png";
 import water from "../../access/img/cards/WaterElemental.jpg";
 const SpellBookSlice = createSlice({
   name: "spellBook",
@@ -21,6 +22,7 @@ const SpellBookSlice = createSlice({
             spell: null,
             element: "огонь",
             actionOnStart: null,
+            actionOnDeath: null,
             actionOnEnd: "damageThisUnit",
             actionDamage: 2,
             attack: 4,
@@ -43,6 +45,7 @@ const SpellBookSlice = createSlice({
             actionOnStart: "damageAll",
             actionDamage: 5,
             actionOnEnd: null,
+            actionOnDeath: null,
             attack: 0,
             price: 2,
             id: 2,
@@ -60,9 +63,10 @@ const SpellBookSlice = createSlice({
             isActive: false,
             spell: null,
             element: "огонь",
-            actionOnStart: null,
-            actionOnEnd: "addFireMana",
-            actionDamage: 5,
+            actionOnStart: "addFireMana",
+            actionOnEnd: null,
+            actionOnDeath: "subFireMana",
+            actionDamage: 1,
             attack: 3,
             price: 3,
             id: 3,
@@ -77,19 +81,26 @@ const SpellBookSlice = createSlice({
               "прирост Силы Огня хозяина.",
           },
           {
-            name: "ragnaros3s",
+            name: "Огненный дракончик",
             isActive: false,
             spell: null,
             element: "огонь",
-            actionOnStart: "damageOwner",
+            actionOnStart: "addFireMana",
             actionOnEnd: null,
-            attack: 10,
-            price: 4,
+            actionOnDeath: "subFireMana",
+            actionDamage: 1,
+            attack: 3,
+            price: 3,
             id: 4,
-            hp: 10,
-            img: ragnaros,
+            hp: 13,
+            img: redDragon,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "\t\n" +
+              "Огненный дракончик\n" +
+              "Огненное существо, стоимость 4\n" +
+              "Атака 4, жизнь 18\n" +
+              "Огненный дракончик атакует\n" +
+              "на том же ходу, что и призван.",
           },
           {
             name: "ragnaros4s",
@@ -270,10 +281,17 @@ const SpellBookSlice = createSlice({
     setElement(state, { payload }) {
       state.choiceElement = payload;
     },
-    addOnlyOneManaElement(state, { payload }) {
+    setManaBook(state, { payload }) {
+      console.log(payload);
       state.book = state.book.map((el) => {
-        if (el.name === payload.element) {
-          return { ...el, count: el.count + el.addMana };
+        if (el.name === payload.card.element) {
+          if (payload.type === "add") {
+            return { ...el, addMana: el.addMana + payload.card.actionDamage };
+          } else {
+            return { ...el, addMana: el.addMana - payload.card.actionDamage };
+          }
+        } else {
+          return el;
         }
       });
     },
@@ -298,25 +316,13 @@ const SpellBookSlice = createSlice({
     setActiveCard(state, { payload }) {
       state.choiceCard = payload;
     },
-    setActive(state, { payload }) {
-      state.book = state.book.map((el) => {
-        if (el.name === payload.element) {
-          return el;
-        } else {
-          return el;
-        }
-      });
-    },
-
-    test(state, action) {},
   },
 });
 
 export const {
-  test,
   setElement,
   setActiveCard,
-  setActive,
+  setManaBook,
   setManaElement,
   addMana,
 } = SpellBookSlice.actions;

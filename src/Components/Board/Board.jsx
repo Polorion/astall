@@ -24,14 +24,6 @@ const Board = ({ board, enemy }) => {
   }, [activeCard]);
 
   const dispatch = useDispatch();
-  const activeSkillIsStart = (startSkill, damage, idCard) => {
-    const test = helperStartAction({
-      name: startSkill,
-      id: idCard,
-      damage: damage,
-    });
-    dispatch(test);
-  };
 
   const handler = (id) => {
     if (ref.current !== null) {
@@ -40,16 +32,11 @@ const Board = ({ board, enemy }) => {
       );
       dispatch(setCardInBoard({ id, activeCard: ref.current }));
       dispatch(setActiveCard(null));
-      if (ref.current.actionOnStart) {
-        activeSkillIsStart(
-          ref.current.actionOnStart,
-          ref.current?.actionDamage,
-          id
-        );
+      if (ref.current.actionOnStart !== null) {
+        dispatch(helperStartAction(ref.current, id));
       }
     }
   };
-
   return (
     <div className={S.body}>
       <Slot enemy={enemy} el={board[0]} handler={handler} />

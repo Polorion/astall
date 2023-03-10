@@ -15,30 +15,44 @@ const PlayerSlice = createSlice({
         id: 1,
         isBusy: null,
         isAttack: false,
+        isActive: false,
       },
       {
         id: 2,
         isBusy: null,
         isAttack: false,
+        isActive: false,
       },
       {
         id: 3,
         isBusy: null,
         isAttack: false,
+        isActive: false,
       },
       {
         id: 4,
         isBusy: null,
         isAttack: false,
+        isActive: false,
       },
       {
         id: 5,
         isBusy: null,
         isAttack: false,
+        isActive: false,
       },
     ],
   },
   reducers: {
+    setActive(state, { payload }) {
+      state.board = state.board.map((el) => {
+        if (el.isBusy) {
+          return { ...el, isActive: true };
+        } else {
+          return el;
+        }
+      });
+    },
     setCardInBoard(state, { payload }) {
       if (payload.activeCard) {
         state.board = state.board.map((el) => {
@@ -89,7 +103,10 @@ const PlayerSlice = createSlice({
     },
     idDamageComputer(state, { payload }) {
       state.board = state.board.map((el) => {
-        if (el.id === 2 && el.isBusy) {
+        if (el.id === payload.id && el.isBusy === null) {
+          state.hp = state.hp - payload.attack;
+        }
+        if (el.id === payload.id && el.isBusy) {
           return {
             ...el,
             isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload.attack },
@@ -134,5 +151,6 @@ export const {
   deathSlot,
   damageIsOwner,
   damageThisUnit,
+  setActive,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;

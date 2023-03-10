@@ -12,8 +12,6 @@ const helperEndAction = (props) => {
         id: props.id,
         damage: props.isBusy.actionDamage,
       });
-    case null:
-      return;
     default:
       return;
   }

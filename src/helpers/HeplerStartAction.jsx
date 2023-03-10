@@ -1,15 +1,18 @@
 import { useDispatch } from "react-redux";
 import * as React from "react";
-import { addMana } from "../store/redux/SpellBookSlice";
-import { damageIsOwner } from "../store/redux/PlayerSlice";
+import { addMana, setManaBook } from "../store/redux/SpellBookSlice";
+import { damageIsOwner, damageThisUnit } from "../store/redux/PlayerSlice";
 import { damageAll } from "../store/redux/ComputerSlice";
 
-const helperStartAction = (props) => {
-  switch (props.name) {
+const helperStartAction = (card, idSlot) => {
+  console.log(card, idSlot);
+  switch (card.actionOnStart) {
     case "damageOwner":
-      return damageIsOwner({ id: props.id, damage: props.damage });
+      return damageIsOwner({ id: idSlot, damage: card.actionDamage });
     case "damageAll":
-      return damageAll(props.damage);
+      return damageAll(card.actionDamage);
+    case "addFireMana":
+      return setManaBook({ card, type: "add" });
     default:
       return;
   }

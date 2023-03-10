@@ -30,23 +30,24 @@ const ComputerSlice = createSlice({
       {
         id: 1,
         isBusy: {
-          name: "Стена огня",
+          name: "Гоблин берсеркер",
           isActive: false,
           spell: null,
           element: "огонь",
-          actionOnStart: "damageOwner",
-          actionOnEnd: null,
-          attack: 0,
-          price: 2,
-          id: 2,
-          hp: 5,
-          img: fireWall,
+          actionOnStart: null,
+          actionOnEnd: "damageThisUnit",
+          actionDamage: 2,
+          attack: 114,
+          price: 1,
+          id: 1,
+          hp: 16,
+          img: goblin,
           description:
-            "Огненное существо, стоимость 2\n" +
-            "Атака 0, жизнь 5\n" +
-            "Когда стена огня призвана,\n" +
-            "она наносит 5 урона всем\n" +
-            "существам противника.",
+            "Гоблин берсеркер\n" +
+            "Огненное существо, стоимость 1\n" +
+            "Атака 4, жизнь 16\n" +
+            "Гоблин берсеркер каждый ход наносит\n" +
+            "2 урона соседним существам хозяина.",
         },
         isAttack: false,
       },
@@ -59,7 +60,7 @@ const ComputerSlice = createSlice({
           element: "огонь",
           actionOnStart: "damageOwner",
           actionOnEnd: null,
-          attack: 0,
+          attack: 110,
           price: 2,
           id: 2,
           hp: 5,

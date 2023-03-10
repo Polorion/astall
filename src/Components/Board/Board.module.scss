@@ -1,6 +1,7 @@
 @import "src/scss/vars";
 .body {
   display: flex;
+  position: relative;
 }
 .slot {
   position: relative;
@@ -64,6 +65,24 @@
 .goComputer {
   animation-duration: 1s;
   animation-name: slideinComp;
+}
+.timer {
+  position: relative;
+  transform-style: preserve-3d;
+  &:after {
+    content: "";
+    opacity: 0.3;
+    border: 4px solid red;
+    transform: translateZ(1px);
+    background-image: url(../../access/img/avatar.jpg);
+    position: absolute;
+    background-color: red;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+  }
 }
 .death {
   animation-duration: 1s;

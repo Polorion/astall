@@ -12,11 +12,11 @@ import {
   idDamageComputer,
   setInfoCard,
 } from "../../../store/redux/PlayerSlice";
+import helperDeathAction from "../../../helpers/HeplerDeathAction";
 
 export const Slot = React.memo(
   (props) => {
     const [damageCard, setDamageCard] = useState();
-
     const refHP = useRef();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -34,8 +34,14 @@ export const Slot = React.memo(
         setTimeout(() => {
           if (!props.enemy) {
             dispatch(deathSlot(props.el.id));
+            if (props.el.isBusy?.actionOnDeath) {
+              dispatch(helperDeathAction(props.el));
+            }
           } else {
             dispatch(deathComputerSlot(props.el.id));
+            if (props.el.isBusy?.actionOnDeath) {
+              dispatch(helperDeathAction(props.el));
+            }
           }
         }, 1000);
       }
@@ -68,13 +74,16 @@ export const Slot = React.memo(
         </div>
       );
     }
+    console.log(props.el.isAttack);
     return (
       <div
         onClick={() => {
           dispatch(setInfoCard(props.el.isBusy));
         }}
         className={`${S.slot} ${props.el.isAttack && !props.enemy && S.go}
-         ${props.el.isAttack && props.enemy && S.goComputer}  `}
+         ${props.el.isAttack && props.enemy && S.goComputer} ${
+          !props.el.isActive && !props.el.isAttack && S.timer
+        } `}
       >
         <img className={S.twoBG} src={props.el.isBusy.img} alt="" />
         <div className={`${S.hp} ${S.box}`}>{props.el.isBusy.hp}</div>
@@ -90,7 +99,8 @@ export const Slot = React.memo(
   (prev, next) => {
     if (
       next.el.isBusy === prev.el.isBusy &&
-      next.el.isAttack === prev.el.isAttack
+      next.el.isAttack === prev.el.isAttack &&
+      next.el.isActive === prev.el.isActive
     ) {
       return true;
     } else {

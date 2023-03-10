@@ -10,6 +10,7 @@ import { ReactComponent as Burger } from "../../access/img/burger.svg";
 import {
   damageIsOwner,
   damageOwner,
+  setActive,
   setAnimationPlayer,
   setFalseAnimation,
 } from "../../store/redux/PlayerSlice";
@@ -31,7 +32,7 @@ const EnemyBar = ({ enemy, owner }) => {
   const allCardInBoardPlayer = useSelector((state) => state.player.board);
   const endRoundHandlerPlayer = () => {
     allCardInBoardPlayer.map((el) => {
-      if (el.isBusy && el.isBusy.actionOnEnd !== null) {
+      if (el.isBusy && el.isBusy.actionOnEnd) {
         dispatch(helperEndAction(el));
       }
     });
@@ -59,9 +60,13 @@ const EnemyBar = ({ enemy, owner }) => {
         numberEmptyCarInBoard = numberEmptyCarInBoard + 1;
       } else {
         numberActiveCarInBoard += 1;
-        setTimeout(() => {
-          dispatch(setAnimationPlayer({ id: el.id, type: true }));
-        }, 1000 * i - numberEmptyCarInBoard * 1000);
+        if (el.isActive) {
+          setTimeout(() => {
+            dispatch(setAnimationPlayer({ id: el.id, type: true }));
+          }, 1000 * i - numberEmptyCarInBoard * 1000);
+        } else {
+          dispatch(setActive());
+        }
       }
     });
     setTimeout(() => {
