@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import ragnaros from "../../access/img/cards/ragnaros.png";
 import goblin from "../../access/img/cards/fire/goblin.png";
 import fireWall from "../../access/img/cards/fire/fireWall.png";
+import firePriest from "../../access/img/cards/fire/firePrist.png";
 import water from "../../access/img/cards/WaterElemental.jpg";
 const SpellBookSlice = createSlice({
   name: "spellBook",
@@ -18,6 +19,10 @@ const SpellBookSlice = createSlice({
             name: "Гоблин берсеркер",
             isActive: false,
             spell: null,
+            element: "огонь",
+            actionOnStart: null,
+            actionOnEnd: "damageThisUnit",
+            actionDamage: 2,
             attack: 4,
             price: 1,
             id: 1,
@@ -34,6 +39,10 @@ const SpellBookSlice = createSlice({
             name: "Стена огня",
             isActive: false,
             spell: null,
+            element: "огонь",
+            actionOnStart: "damageAll",
+            actionDamage: 5,
+            actionOnEnd: null,
             attack: 0,
             price: 2,
             id: 2,
@@ -47,21 +56,33 @@ const SpellBookSlice = createSlice({
               "существам противника.",
           },
           {
-            name: "ragnaros2s",
+            name: "Жрец Огня",
             isActive: false,
             spell: null,
-            attack: 10,
+            element: "огонь",
+            actionOnStart: null,
+            actionOnEnd: "addFireMana",
+            actionDamage: 5,
+            attack: 3,
             price: 3,
             id: 3,
-            hp: 10,
-            img: ragnaros,
+            hp: 13,
+            img: firePriest,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "\t\n" +
+              "Жрец огня\n" +
+              "Огненное существо, стоимость 3\n" +
+              "Атака 3, жизнь 13\n" +
+              "Жрец огня увеличивает на 1\n" +
+              "прирост Силы Огня хозяина.",
           },
           {
             name: "ragnaros3s",
             isActive: false,
             spell: null,
+            element: "огонь",
+            actionOnStart: "damageOwner",
+            actionOnEnd: null,
             attack: 10,
             price: 4,
             id: 4,
@@ -74,6 +95,9 @@ const SpellBookSlice = createSlice({
             name: "ragnaros4s",
             isActive: false,
             spell: null,
+            element: "огонь",
+            actionOnStart: "damageOwner",
+            actionOnEnd: null,
             attack: 10,
             price: 5,
             id: 5,
@@ -86,6 +110,9 @@ const SpellBookSlice = createSlice({
             name: "ragnaros5s",
             isActive: false,
             spell: null,
+            element: "огонь",
+            actionOnStart: "damageOwner",
+            actionOnEnd: null,
             attack: 10,
             price: 6,
             id: 6,
@@ -98,6 +125,9 @@ const SpellBookSlice = createSlice({
             name: "ragnaros6s",
             isActive: false,
             spell: null,
+            element: "огонь",
+            actionOnStart: "damageOwner",
+            actionOnEnd: null,
             attack: 10,
             price: 7,
             id: 7,
@@ -110,6 +140,9 @@ const SpellBookSlice = createSlice({
             name: "ragnaros7s",
             isActive: false,
             spell: null,
+            element: "огонь",
+            actionOnStart: "damageOwner",
+            actionOnEnd: null,
             attack: 10,
             price: 8,
             img: ragnaros,
@@ -130,8 +163,11 @@ const SpellBookSlice = createSlice({
             isActive: false,
             spell: null,
             attack: 10,
+            element: "вода",
+            actionOnStart: null,
+            actionOnEnd: null,
             price: 5,
-            id: 1,
+            id: 11,
             hp: 10,
             img: water,
             description:
@@ -143,7 +179,7 @@ const SpellBookSlice = createSlice({
             spell: null,
             attack: 10,
             price: 5,
-            id: 2,
+            id: 12,
             hp: 10,
             img: water,
             description:
@@ -155,7 +191,7 @@ const SpellBookSlice = createSlice({
             spell: null,
             attack: 10,
             price: 5,
-            id: 3,
+            id: 13,
             hp: 10,
             img: water,
             description:
@@ -167,7 +203,7 @@ const SpellBookSlice = createSlice({
             spell: null,
             attack: 10,
             price: 5,
-            id: 4,
+            id: 14,
             hp: 10,
             img: water,
             description:
@@ -179,7 +215,7 @@ const SpellBookSlice = createSlice({
             spell: null,
             attack: 10,
             price: 5,
-            id: 5,
+            id: 15,
             hp: 10,
             img: water,
             description:
@@ -191,7 +227,7 @@ const SpellBookSlice = createSlice({
             spell: null,
             attack: 10,
             price: 5,
-            id: 6,
+            id: 16,
             hp: 10,
             img: water,
             description:
@@ -203,7 +239,7 @@ const SpellBookSlice = createSlice({
             spell: null,
             attack: 10,
             price: 5,
-            id: 7,
+            id: 17,
             hp: 10,
             img: water,
             description:
@@ -216,7 +252,7 @@ const SpellBookSlice = createSlice({
             attack: 10,
             price: 5,
             img: water,
-            id: 8,
+            id: 18,
             hp: 10,
             description:
               "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
@@ -233,6 +269,13 @@ const SpellBookSlice = createSlice({
   reducers: {
     setElement(state, { payload }) {
       state.choiceElement = payload;
+    },
+    addOnlyOneManaElement(state, { payload }) {
+      state.book = state.book.map((el) => {
+        if (el.name === payload.element) {
+          return { ...el, count: el.count + el.addMana };
+        }
+      });
     },
     addMana(state, { payload }) {
       state.book = state.book.map((el) => {

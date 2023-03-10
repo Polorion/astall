@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import avatar from "../../access/img/avatar.jpg";
 import ragnaros from "../../access/img/cards/ragnaros.png";
+import goblin from "../../access/img/cards/fire/goblin.png";
+import fireWall from "../../access/img/cards/fire/fireWall.png";
 const PlayerSlice = createSlice({
   name: "Player",
   initialState: {
@@ -21,17 +23,7 @@ const PlayerSlice = createSlice({
       },
       {
         id: 3,
-        isBusy: {
-          name: "ragnaros",
-          spell: null,
-          attack: 10,
-          price: 5,
-          id: 1,
-          hp: 10,
-          img: ragnaros,
-          description:
-            "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
-        },
+        isBusy: null,
         isAttack: false,
       },
       {
@@ -61,7 +53,31 @@ const PlayerSlice = createSlice({
     setInfoCard(state, { payload }) {
       state.infoCard = payload;
     },
-
+    damageIsOwner(state, { payload }) {
+      console.log(payload);
+      state.board = state.board.map((el) => {
+        if (el.id === payload.id && el.isBusy) {
+          return {
+            ...el,
+            isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload.damage },
+          };
+        } else {
+          return el;
+        }
+      });
+    },
+    deathSlot(state, { payload }) {
+      state.board = state.board.map((el) => {
+        if (el.id === payload) {
+          return {
+            ...el,
+            isBusy: null,
+          };
+        } else {
+          return el;
+        }
+      });
+    },
     setAnimationPlayer(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload.id) {
@@ -73,13 +89,28 @@ const PlayerSlice = createSlice({
     },
     idDamageComputer(state, { payload }) {
       state.board = state.board.map((el) => {
-        if (el.id === payload.id && el.isBusy === null) {
-          state.hp = state.hp - payload.attack;
-        }
-        if (el.id === payload.id && el.isBusy) {
+        if (el.id === 2 && el.isBusy) {
           return {
             ...el,
             isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload.attack },
+          };
+        } else {
+          return el;
+        }
+      });
+    },
+    damageThisUnit(state, { payload }) {
+      console.log(payload);
+      state.board = state.board.map((el) => {
+        if (el.id === payload.id - 1 && el.isBusy) {
+          return {
+            ...el,
+            isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload.damage },
+          };
+        } else if (el.id === payload.id + 1 && el.isBusy) {
+          return {
+            ...el,
+            isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload.damage },
           };
         } else {
           return el;
@@ -100,5 +131,8 @@ export const {
   setFalseAnimation,
   setInfoCard,
   idDamageComputer,
+  deathSlot,
+  damageIsOwner,
+  damageThisUnit,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;

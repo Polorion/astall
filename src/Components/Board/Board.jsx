@@ -9,6 +9,7 @@ import {
 } from "../../store/redux/SpellBookSlice";
 import { Slot } from "./Slot/Slot";
 import { useEffect, useRef } from "react";
+import helperStartAction from "../../helpers/HeplerStartAction";
 
 const Board = ({ board, enemy }) => {
   const activeCard = useSelector((state) => state.spellBook.choiceCard);
@@ -23,6 +24,14 @@ const Board = ({ board, enemy }) => {
   }, [activeCard]);
 
   const dispatch = useDispatch();
+  const activeSkillIsStart = (startSkill, damage, idCard) => {
+    const test = helperStartAction({
+      name: startSkill,
+      id: idCard,
+      damage: damage,
+    });
+    dispatch(test);
+  };
 
   const handler = (id) => {
     if (ref.current !== null) {
@@ -31,6 +40,13 @@ const Board = ({ board, enemy }) => {
       );
       dispatch(setCardInBoard({ id, activeCard: ref.current }));
       dispatch(setActiveCard(null));
+      if (ref.current.actionOnStart) {
+        activeSkillIsStart(
+          ref.current.actionOnStart,
+          ref.current?.actionDamage,
+          id
+        );
+      }
     }
   };
 

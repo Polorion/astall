@@ -8,6 +8,8 @@ import MyButton from "../MyButton/MyButton";
 import { ReactComponent as Next } from "../../access/img/next.svg";
 import { ReactComponent as Burger } from "../../access/img/burger.svg";
 import {
+  damageIsOwner,
+  damageOwner,
   setAnimationPlayer,
   setFalseAnimation,
 } from "../../store/redux/PlayerSlice";
@@ -18,6 +20,7 @@ import {
   setAnimationComputer,
   setFalseAnimationComputer,
 } from "../../store/redux/ComputerSlice";
+import helperEndAction from "../../helpers/HeplerEndAction";
 
 const EnemyBar = ({ enemy, owner }) => {
   const dispatch = useDispatch();
@@ -25,6 +28,14 @@ const EnemyBar = ({ enemy, owner }) => {
   const allCardComputer = useSelector((state) => state.computer.board);
   const refHPOwner = useRef();
   const [damageOwner, setDamageOwner] = useState();
+  const allCardInBoardPlayer = useSelector((state) => state.player.board);
+  const endRoundHandlerPlayer = () => {
+    allCardInBoardPlayer.map((el) => {
+      if (el.isBusy && el.isBusy.actionOnEnd !== null) {
+        dispatch(helperEndAction(el));
+      }
+    });
+  };
   useEffect(() => {
     if (refHPOwner.current > owner.hp) {
       setDamageOwner({
@@ -55,10 +66,11 @@ const EnemyBar = ({ enemy, owner }) => {
     });
     setTimeout(() => {
       dispatch(setFalseAnimation());
+      endRoundHandlerPlayer();
     }, numberActiveCarInBoard * 1000);
     dispatch(addMana());
   };
-  const test = () => {
+  const handlerComputer = () => {
     let numberEmptyCarInBoard = 0;
     let numberActiveCarInBoard = 0;
     allCardComputer.map((el, i) => {
@@ -94,7 +106,7 @@ const EnemyBar = ({ enemy, owner }) => {
           <div className={S.controlBtn}>
             {!enemy && <MyButton Img={Next} action={handler} />}{" "}
             {!enemy && <MyButton Img={Burger} />}
-            {enemy && <MyButton Img={Burger} action={test} />}
+            {enemy && <MyButton Img={Burger} action={handlerComputer} />}
           </div>
 
           <div className={S.board}>

@@ -2,21 +2,21 @@ import * as React from "react";
 import S from "../Board.module.scss";
 import { useEffect, useRef, useState } from "react";
 import stub from "../../../access/img/zaglushka.jpg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deathComputerSlot,
   idDamage,
 } from "../../../store/redux/ComputerSlice";
 import {
+  deathSlot,
   idDamageComputer,
   setInfoCard,
 } from "../../../store/redux/PlayerSlice";
 
 export const Slot = React.memo(
   (props) => {
-    console.log(props.el.isAttack);
-    const [isDeath, setIsDeath] = useState(false);
     const [damageCard, setDamageCard] = useState();
+
     const refHP = useRef();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -30,10 +30,13 @@ export const Slot = React.memo(
       }
     }, [props.el.isAttack]);
     useEffect(() => {
-      if (props.el.isBusy?.hp <= 0 && props.enemy) {
-        setIsDeath(true);
+      if (props.el.isBusy?.hp <= 0) {
         setTimeout(() => {
-          dispatch(deathComputerSlot(props.el.id));
+          if (!props.enemy) {
+            dispatch(deathSlot(props.el.id));
+          } else {
+            dispatch(deathComputerSlot(props.el.id));
+          }
         }, 1000);
       }
 
@@ -57,7 +60,7 @@ export const Slot = React.memo(
         <div
           className={S.slot}
           onClick={() => {
-            props.handler(props.el.id);
+            props.handler(props.el.id, props.el.isBusy?.actionOnStart);
           }}
         >
           <img className={S.oneBG} src={stub} alt="" />
@@ -71,9 +74,7 @@ export const Slot = React.memo(
           dispatch(setInfoCard(props.el.isBusy));
         }}
         className={`${S.slot} ${props.el.isAttack && !props.enemy && S.go}
-         ${props.el.isAttack && props.enemy && S.goComputer}${
-          isDeath && S.death
-        }  `}
+         ${props.el.isAttack && props.enemy && S.goComputer}  `}
       >
         <img className={S.twoBG} src={props.el.isBusy.img} alt="" />
         <div className={`${S.hp} ${S.box}`}>{props.el.isBusy.hp}</div>
