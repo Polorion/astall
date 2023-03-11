@@ -4,9 +4,11 @@ import goblin from "../../access/img/cards/fire/goblin.png";
 import fireWall from "../../access/img/cards/fire/fireWall.png";
 import firePriest from "../../access/img/cards/fire/firePrist.png";
 import redDragon from "../../access/img/cards/fire/redDragon.png";
+import orcWarrior from "../../access/img/cards/fire/orcWarrior.png";
+import fireWave from "../../access/img/cards/fire/fireWave.png";
 import water from "../../access/img/cards/WaterElemental.jpg";
 const SpellBookSlice = createSlice({
-  name: "spellBook",
+  name: "typeBook",
   initialState: {
     choiceElement: "огонь",
     choiceCard: null,
@@ -19,7 +21,7 @@ const SpellBookSlice = createSlice({
           {
             name: "Гоблин берсеркер",
             isActive: false,
-            spell: null,
+            type: "card",
             element: "огонь",
             actionOnStart: null,
             actionOnDeath: null,
@@ -40,7 +42,7 @@ const SpellBookSlice = createSlice({
           {
             name: "Стена огня",
             isActive: false,
-            spell: null,
+            type: "card",
             element: "огонь",
             actionOnStart: "damageAll",
             actionDamage: 5,
@@ -61,7 +63,7 @@ const SpellBookSlice = createSlice({
           {
             name: "Жрец Огня",
             isActive: false,
-            spell: null,
+            type: "card",
             element: "огонь",
             actionOnStart: "addFireMana",
             actionOnEnd: null,
@@ -82,17 +84,18 @@ const SpellBookSlice = createSlice({
           },
           {
             name: "Огненный дракончик",
-            isActive: false,
-            spell: null,
+            isActive: true,
+            attackFirstRound: true,
+            type: "card",
             element: "огонь",
-            actionOnStart: "addFireMana",
+            actionOnStart: null,
             actionOnEnd: null,
-            actionOnDeath: "subFireMana",
+            actionOnDeath: null,
             actionDamage: 1,
-            attack: 3,
+            attack: 4,
             price: 3,
             id: 4,
-            hp: 13,
+            hp: 18,
             img: redDragon,
             description:
               "\t\n" +
@@ -103,39 +106,50 @@ const SpellBookSlice = createSlice({
               "на том же ходу, что и призван.",
           },
           {
-            name: "ragnaros4s",
+            name: "Орк предводитель",
             isActive: false,
-            spell: null,
+            type: "card",
             element: "огонь",
-            actionOnStart: "damageOwner",
+            actionOnStart: "addDamageNearby",
             actionOnEnd: null,
-            attack: 10,
+            actionOnDeath: "subDamageNearby",
+            actionDamage: 2,
+            attack: 3,
             price: 5,
             id: 5,
-            hp: 10,
-            img: ragnaros,
+            hp: 17,
+            img: orcWarrior,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Орк предводитель\n" +
+              "Огненное существо, стоимость 5\n" +
+              "Атака 3, жизнь 17\n" +
+              "Орк предводитель увеличивает атаку\n" +
+              "соседних существ хозяина на 2.",
           },
           {
-            name: "ragnaros5s",
+            name: "Огненная волна",
             isActive: false,
-            spell: null,
+            type: "spell",
             element: "огонь",
-            actionOnStart: "damageOwner",
+            actionOnStart: null,
             actionOnEnd: null,
-            attack: 10,
+            actionOnDeath: null,
+            actionDamage: 9,
+            attack: null,
             price: 6,
             id: 6,
-            hp: 10,
-            img: ragnaros,
+            hp: null,
+            img: fireWave,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "\t\n" +
+              "Огненная волна\n" +
+              "Огненное заклинание, стоимость 6\n" +
+              "Наносит 9 урона существам противника.",
           },
           {
             name: "ragnaros6s",
             isActive: false,
-            spell: null,
+            type: null,
             element: "огонь",
             actionOnStart: "damageOwner",
             actionOnEnd: null,
@@ -150,7 +164,7 @@ const SpellBookSlice = createSlice({
           {
             name: "ragnaros7s",
             isActive: false,
-            spell: null,
+            type: null,
             element: "огонь",
             actionOnStart: "damageOwner",
             actionOnEnd: null,
@@ -172,7 +186,7 @@ const SpellBookSlice = createSlice({
           {
             name: "ragnarosqs",
             isActive: false,
-            spell: null,
+            type: null,
             attack: 10,
             element: "вода",
             actionOnStart: null,
@@ -187,7 +201,7 @@ const SpellBookSlice = createSlice({
           {
             name: "ragnarqoss",
             isActive: false,
-            spell: null,
+            type: null,
             attack: 10,
             price: 5,
             id: 12,
@@ -199,7 +213,7 @@ const SpellBookSlice = createSlice({
           {
             name: "ragnaroqs2s",
             isActive: false,
-            spell: null,
+            type: null,
             attack: 10,
             price: 5,
             id: 13,
@@ -211,7 +225,7 @@ const SpellBookSlice = createSlice({
           {
             name: "ragnarqos3s",
             isActive: false,
-            spell: null,
+            type: null,
             attack: 10,
             price: 5,
             id: 14,
@@ -223,7 +237,7 @@ const SpellBookSlice = createSlice({
           {
             name: "ragnarqos4s",
             isActive: false,
-            spell: null,
+            type: null,
             attack: 10,
             price: 5,
             id: 15,
@@ -235,7 +249,7 @@ const SpellBookSlice = createSlice({
           {
             name: "ragnqaros5s",
             isActive: false,
-            spell: null,
+            type: null,
             attack: 10,
             price: 5,
             id: 16,
@@ -247,7 +261,7 @@ const SpellBookSlice = createSlice({
           {
             name: "ragqnaros6s",
             isActive: false,
-            spell: null,
+            type: null,
             attack: 10,
             price: 5,
             id: 17,
@@ -259,7 +273,7 @@ const SpellBookSlice = createSlice({
           {
             name: "ragqnaros7s",
             isActive: false,
-            spell: null,
+            type: null,
             attack: 10,
             price: 5,
             img: water,
@@ -282,7 +296,6 @@ const SpellBookSlice = createSlice({
       state.choiceElement = payload;
     },
     setManaBook(state, { payload }) {
-      console.log(payload);
       state.book = state.book.map((el) => {
         if (el.name === payload.card.element) {
           if (payload.type === "add") {

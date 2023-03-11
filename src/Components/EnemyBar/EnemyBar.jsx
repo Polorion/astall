@@ -60,12 +60,14 @@ const EnemyBar = ({ enemy, owner }) => {
         numberEmptyCarInBoard = numberEmptyCarInBoard + 1;
       } else {
         numberActiveCarInBoard += 1;
-        if (el.isActive) {
+        if (el.isBusy.isActive) {
           setTimeout(() => {
             dispatch(setAnimationPlayer({ id: el.id, type: true }));
           }, 1000 * i - numberEmptyCarInBoard * 1000);
         } else {
-          dispatch(setActive());
+          setTimeout(() => {
+            dispatch(setActive({ id: el.id, type: true }));
+          }, 1000 * i - numberEmptyCarInBoard * 1000);
         }
       }
     });

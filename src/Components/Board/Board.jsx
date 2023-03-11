@@ -25,8 +25,15 @@ const Board = ({ board, enemy }) => {
 
   const dispatch = useDispatch();
 
-  const handler = (id) => {
-    if (ref.current !== null) {
+  const handler = (id, isBusy) => {
+    console.log(isBusy);
+    console.log(ref.current);
+    if (
+      ref.current !== null &&
+      ref.current.type !== "spell" &&
+      !isBusy &&
+      !enemy
+    ) {
       dispatch(
         setManaElement({ name: refElement.current, count: ref.current.price })
       );
@@ -35,6 +42,9 @@ const Board = ({ board, enemy }) => {
       if (ref.current.actionOnStart !== null) {
         dispatch(helperStartAction(ref.current, id));
       }
+    }
+    if (ref.current !== null && ref.current.type === "spell" && enemy) {
+      console.log(1);
     }
   };
   return (

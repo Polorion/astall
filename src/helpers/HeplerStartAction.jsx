@@ -1,11 +1,14 @@
 import { useDispatch } from "react-redux";
 import * as React from "react";
 import { addMana, setManaBook } from "../store/redux/SpellBookSlice";
-import { damageIsOwner, damageThisUnit } from "../store/redux/PlayerSlice";
+import {
+  addNearbyDamage,
+  damageIsOwner,
+  damageThisUnit,
+} from "../store/redux/PlayerSlice";
 import { damageAll } from "../store/redux/ComputerSlice";
 
 const helperStartAction = (card, idSlot) => {
-  console.log(card, idSlot);
   switch (card.actionOnStart) {
     case "damageOwner":
       return damageIsOwner({ id: idSlot, damage: card.actionDamage });
@@ -13,6 +16,12 @@ const helperStartAction = (card, idSlot) => {
       return damageAll(card.actionDamage);
     case "addFireMana":
       return setManaBook({ card, type: "add" });
+    case "addDamageNearby":
+      return addNearbyDamage({
+        action: card.actionDamage,
+        id: idSlot,
+        type: "add",
+      });
     default:
       return;
   }

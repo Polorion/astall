@@ -3,6 +3,7 @@ import avatar from "../../access/img/avatar.jpg";
 import ragnaros from "../../access/img/cards/ragnaros.png";
 import goblin from "../../access/img/cards/fire/goblin.png";
 import fireWall from "../../access/img/cards/fire/fireWall.png";
+import board from "../../Components/Board/Board";
 const PlayerSlice = createSlice({
   name: "Player",
   initialState: {
@@ -15,41 +16,95 @@ const PlayerSlice = createSlice({
         id: 1,
         isBusy: null,
         isAttack: false,
-        isActive: false,
+        addDamage: 0,
       },
       {
         id: 2,
         isBusy: null,
         isAttack: false,
-        isActive: false,
+        addDamage: 0,
       },
       {
         id: 3,
         isBusy: null,
         isAttack: false,
-        isActive: false,
+        addDamage: 0,
       },
       {
         id: 4,
         isBusy: null,
         isAttack: false,
-        isActive: false,
+        addDamage: 0,
       },
       {
         id: 5,
         isBusy: null,
         isAttack: false,
-        isActive: false,
+        addDamage: 0,
       },
     ],
   },
   reducers: {
     setActive(state, { payload }) {
       state.board = state.board.map((el) => {
-        if (el.isBusy) {
-          return { ...el, isActive: true };
+        if (el.id === payload.id) {
+          return { ...el, isBusy: { ...el.isBusy, isActive: true } };
         } else {
           return el;
+        }
+      });
+    },
+
+    addNearbyDamage(state, { payload }) {
+      state.board = state.board.map((el) => {
+        switch (el.id) {
+          case payload.id - 1:
+            if (el.isBusy) {
+              return {
+                ...el,
+                addDamage:
+                  el.addDamage +
+                  (payload.type === "add" ? payload.action : -payload.action),
+                isBusy: {
+                  ...el.isBusy,
+                  attack:
+                    el.isBusy.attack +
+                    (payload.type === "add" ? payload.action : -payload.action),
+                },
+              };
+            } else {
+              return {
+                ...el,
+                addDamage:
+                  el.addDamage +
+                  (payload.type === "add" ? payload.action : -payload.action),
+              };
+            }
+          case payload.id + 1:
+            if (el.isBusy) {
+              return {
+                ...el,
+                addDamage:
+                  el.addDamage +
+                  (payload.type === "add" ? payload.action : -payload.action),
+                isBusy: {
+                  ...el.isBusy,
+                  attack:
+                    el.isBusy.attack +
+                    (payload.type === "add" ? payload.action : -payload.action),
+                },
+              };
+            } else {
+              return {
+                ...el,
+                addDamage:
+                  el.addDamage +
+                  (payload.type === "add" ? payload.action : -payload.action),
+              };
+            }
+
+          default:
+            return el;
         }
       });
     },
@@ -57,7 +112,9 @@ const PlayerSlice = createSlice({
       if (payload.activeCard) {
         state.board = state.board.map((el) => {
           if (el.id === payload.id) {
-            return { ...el, isBusy: payload.activeCard, animation: false };
+            const newCard = { ...payload.activeCard };
+            newCard.attack = newCard.attack + state.board[el.id - 1].addDamage;
+            return { ...el, isBusy: newCard, animation: false };
           } else {
             return el;
           }
@@ -151,6 +208,7 @@ export const {
   deathSlot,
   damageIsOwner,
   damageThisUnit,
+  addNearbyDamage,
   setActive,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;

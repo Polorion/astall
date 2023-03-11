@@ -16,6 +16,7 @@ import helperDeathAction from "../../../helpers/HeplerDeathAction";
 
 export const Slot = React.memo(
   (props) => {
+    console.log(props);
     const [damageCard, setDamageCard] = useState();
     const refHP = useRef();
     const dispatch = useDispatch();
@@ -66,7 +67,7 @@ export const Slot = React.memo(
         <div
           className={S.slot}
           onClick={() => {
-            props.handler(props.el.id, props.el.isBusy?.actionOnStart);
+            props.handler(props.el.id);
           }}
         >
           <img className={S.oneBG} src={stub} alt="" />
@@ -74,15 +75,17 @@ export const Slot = React.memo(
         </div>
       );
     }
-    console.log(props.el.isAttack);
     return (
       <div
         onClick={() => {
           dispatch(setInfoCard(props.el.isBusy));
+          props.handler(props.el.id, true);
         }}
         className={`${S.slot} ${props.el.isAttack && !props.enemy && S.go}
          ${props.el.isAttack && props.enemy && S.goComputer} ${
-          !props.el.isActive && !props.el.isAttack && S.timer
+          props.el.isBusy.isActive &&
+          !props.el.isBusy.attackFirstRound &&
+          S.timer
         } `}
       >
         <img className={S.twoBG} src={props.el.isBusy.img} alt="" />

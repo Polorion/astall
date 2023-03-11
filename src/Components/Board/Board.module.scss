@@ -71,17 +71,19 @@
   transform-style: preserve-3d;
   &:after {
     content: "";
-    opacity: 0.3;
-    border: 4px solid red;
+    opacity: 0;
     transform: translateZ(1px);
-    background-image: url(../../access/img/avatar.jpg);
+    background-image: url(../../access/img/time.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
     position: absolute;
-    background-color: red;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     z-index: 10000;
+    animation-duration: 1s;
+    animation-name: sleep;
   }
 }
 .death {
@@ -117,6 +119,18 @@
   100% {
     transform: translateY(-20px) translate(-50%, -50%);
     opacity: 0;
+  }
+}
+@keyframes sleep {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform: rotate(180deg);
   }
 }
 

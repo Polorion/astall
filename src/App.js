@@ -7,7 +7,7 @@ function App() {
   const player = useSelector((state) => state.player);
   const computer = useSelector((state) => state.computer);
   return (
-    <div>
+    <div className={"allWindow"}>
       <EnemyBar enemy={true} owner={computer} />
       <EnemyBar enemy={false} owner={player} />
       <CardBar />

@@ -1,7 +1,12 @@
 import { useDispatch } from "react-redux";
 import * as React from "react";
 import { addMana, setManaBook } from "../store/redux/SpellBookSlice";
-import { damageIsOwner, damageThisUnit } from "../store/redux/PlayerSlice";
+import {
+  addNearbyDamage,
+  damageIsOwner,
+  damageThisUnit,
+  subNearbyDamage,
+} from "../store/redux/PlayerSlice";
 import { damageAll } from "../store/redux/ComputerSlice";
 
 const helperDeathAction = (card) => {
@@ -9,6 +14,12 @@ const helperDeathAction = (card) => {
   switch (card.isBusy.actionOnDeath) {
     case "subFireMana":
       return setManaBook({ card: card.isBusy, type: "sub" });
+    case "subDamageNearby":
+      return addNearbyDamage({
+        action: card.isBusy.actionDamage,
+        id: card.id,
+        type: "sub",
+      });
     default:
       return;
   }
