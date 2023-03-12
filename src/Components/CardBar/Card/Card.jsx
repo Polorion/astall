@@ -15,8 +15,13 @@ const Card = ({ card, active, currentMana }) => {
     <div className={`${S.body} ${currentMana < card.price && S.disable}`}>
       <div className={`${S.img} ${active && S.active}`} onClick={handler}>
         <img src={card.img} alt="" />
-        <div className={`${S.hp} ${S.stats}`}>{card.hp}</div>
-        <div className={`${S.attack} ${S.stats}`}>{card.attack}</div>
+        {card.type === "card" && (
+          <div className={`${S.attack} ${S.stats}`}>{card.attack}</div>
+        )}
+        {card.type === "card" && (
+          <div className={`${S.hp} ${S.stats}`}>{card.hp}</div>
+        )}
+
         <div className={`${S.price} ${S.stats}`}>{card.price}</div>
       </div>
     </div>

@@ -191,6 +191,23 @@ const PlayerSlice = createSlice({
         }
       });
     },
+    setDamageAllUnits(state, { payload }) {
+      console.log(payload);
+      state.board = state.board.map((el) => {
+        if (el.isBusy) {
+          return {
+            ...el,
+            addDamage: el.addDamage + payload.damage,
+            isBusy: { ...el.isBusy, attack: el.isBusy.attack + payload.damage },
+          };
+        } else {
+          return {
+            ...el,
+            addDamage: el.addDamage + payload.damage,
+          };
+        }
+      });
+    },
     setFalseAnimation(state, { payload }) {
       state.board = state.board.map((el) => {
         return { ...el, isAttack: false };
@@ -210,5 +227,6 @@ export const {
   damageThisUnit,
   addNearbyDamage,
   setActive,
+  setDamageAllUnits,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;

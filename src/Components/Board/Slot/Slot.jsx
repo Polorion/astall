@@ -16,7 +16,6 @@ import helperDeathAction from "../../../helpers/HeplerDeathAction";
 
 export const Slot = React.memo(
   (props) => {
-    console.log(props);
     const [damageCard, setDamageCard] = useState();
     const refHP = useRef();
     const dispatch = useDispatch();

@@ -6,6 +6,7 @@ import firePriest from "../../access/img/cards/fire/firePrist.png";
 import redDragon from "../../access/img/cards/fire/redDragon.png";
 import orcWarrior from "../../access/img/cards/fire/orcWarrior.png";
 import fireWave from "../../access/img/cards/fire/fireWave.png";
+import minotaur from "../../access/img/cards/fire/minotavr.png";
 import water from "../../access/img/cards/WaterElemental.jpg";
 const SpellBookSlice = createSlice({
   name: "typeBook",
@@ -15,7 +16,7 @@ const SpellBookSlice = createSlice({
     book: [
       {
         name: "огонь",
-        count: 10,
+        count: 110,
         addMana: 1,
         cards: [
           {
@@ -25,6 +26,9 @@ const SpellBookSlice = createSlice({
             element: "огонь",
             actionOnStart: null,
             actionOnDeath: null,
+            actionSpell: null,
+            actionDamageSpell: null,
+
             actionOnEnd: "damageThisUnit",
             actionDamage: 2,
             attack: 4,
@@ -47,6 +51,9 @@ const SpellBookSlice = createSlice({
             actionOnStart: "damageAll",
             actionDamage: 5,
             actionOnEnd: null,
+            actionSpell: null,
+            actionDamageSpell: null,
+
             actionOnDeath: null,
             attack: 0,
             price: 2,
@@ -67,6 +74,9 @@ const SpellBookSlice = createSlice({
             element: "огонь",
             actionOnStart: "addFireMana",
             actionOnEnd: null,
+            actionSpell: null,
+            actionDamageSpell: null,
+
             actionOnDeath: "subFireMana",
             actionDamage: 1,
             attack: 3,
@@ -90,6 +100,9 @@ const SpellBookSlice = createSlice({
             element: "огонь",
             actionOnStart: null,
             actionOnEnd: null,
+            actionSpell: null,
+            actionDamageSpell: null,
+
             actionOnDeath: null,
             actionDamage: 1,
             attack: 4,
@@ -112,6 +125,8 @@ const SpellBookSlice = createSlice({
             element: "огонь",
             actionOnStart: "addDamageNearby",
             actionOnEnd: null,
+            actionSpell: null,
+            actionDamageSpell: null,
             actionOnDeath: "subDamageNearby",
             actionDamage: 2,
             attack: 3,
@@ -134,7 +149,9 @@ const SpellBookSlice = createSlice({
             actionOnStart: null,
             actionOnEnd: null,
             actionOnDeath: null,
-            actionDamage: 9,
+            actionSpell: "fireWave",
+            actionDamage: null,
+            actionDamageSpell: 9,
             attack: null,
             price: 6,
             id: 6,
@@ -147,19 +164,29 @@ const SpellBookSlice = createSlice({
               "Наносит 9 урона существам противника.",
           },
           {
-            name: "ragnaros6s",
+            name: "Командир минотавров",
             isActive: false,
-            type: null,
+            type: "card",
             element: "огонь",
-            actionOnStart: "damageOwner",
+            actionOnStart: "addDamageAllUnit",
             actionOnEnd: null,
-            attack: 10,
+            actionOnDeath: null,
+            actionSpell: null,
+            actionDamage: 1,
+            actionDamageSpell: null,
+            attack: 6,
             price: 7,
             id: 7,
-            hp: 10,
-            img: ragnaros,
+            hp: 20,
+            img: minotaur,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "\t\n" +
+              "Командир минотавров\n" +
+              "Огненное существо, стоимость 7\n" +
+              "Атака 6, жизнь 20\n" +
+              "Командир минотавров увеличивает на 1\n" +
+              "атаку всех остальных существ хозяина\n" +
+              "(кроме стен).",
           },
           {
             name: "ragnaros7s",
@@ -295,6 +322,7 @@ const SpellBookSlice = createSlice({
     setElement(state, { payload }) {
       state.choiceElement = payload;
     },
+
     setManaBook(state, { payload }) {
       state.book = state.book.map((el) => {
         if (el.name === payload.card.element) {
