@@ -39,7 +39,7 @@ const Board = ({ board, enemy }) => {
       dispatch(setCardInBoard({ id, activeCard: ref.current }));
       dispatch(setActiveCard(null));
       if (ref.current.actionOnStart !== null) {
-        dispatch(helperStartAction(ref.current, id));
+        helperStartAction(ref.current, id, dispatch);
       }
     }
     if (ref.current !== null && ref.current.type === "spell" && enemy) {

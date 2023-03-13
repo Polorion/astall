@@ -4,6 +4,7 @@ import ragnaros from "../../access/img/cards/ragnaros.png";
 import goblin from "../../access/img/cards/fire/goblin.png";
 import fireWall from "../../access/img/cards/fire/fireWall.png";
 import board from "../../Components/Board/Board";
+import computerSlice from "./ComputerSlice";
 const PlayerSlice = createSlice({
   name: "Player",
   initialState: {
@@ -149,6 +150,18 @@ const PlayerSlice = createSlice({
         }
       });
     },
+    damageAllOwner(state, { payload }) {
+      state.board = state.board.map((el) => {
+        if (el.isBusy) {
+          return {
+            ...el,
+            isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload },
+          };
+        } else {
+          return el;
+        }
+      });
+    },
     setAnimationPlayer(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload.id) {
@@ -237,5 +250,6 @@ export const {
   addNearbyDamage,
   setActive,
   setDamageAllUnits,
+  damageAllOwner,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;

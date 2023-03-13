@@ -3,28 +3,39 @@ import * as React from "react";
 import { addMana, setManaBook } from "../store/redux/SpellBookSlice";
 import {
   addNearbyDamage,
+  damageAllOwner,
   damageIsOwner,
-  damageThisUnit,
   setDamageAllUnits,
 } from "../store/redux/PlayerSlice";
 import { damageAll } from "../store/redux/ComputerSlice";
 
-const helperStartAction = (card, idSlot) => {
+const helperStartAction = (card, idSlot, dispatch) => {
   switch (card.actionOnStart) {
     case "damageOwner":
-      return damageIsOwner({ id: idSlot, damage: card.actionDamage });
+      dispatch(damageIsOwner({ id: idSlot, damage: card.actionDamage }));
+      return;
     case "damageAll":
-      return damageAll(card.actionDamage);
+      dispatch(damageAll(card.actionDamage));
+      return;
     case "addFireMana":
-      return setManaBook({ card, type: "add" });
+      dispatch(setManaBook({ card, type: "add" }));
+      return;
     case "addDamageAllUnit":
-      return setDamageAllUnits({ action: card.actionDamage, type: "add" });
+      dispatch(setDamageAllUnits({ action: card.actionDamage, type: "add" }));
+      return;
+    case "damageAllUnitOwnerAndEnemy":
+      dispatch(damageAll(card.actionDamage));
+      dispatch(damageAllOwner(card.actionDamage));
+      return;
     case "addDamageNearby":
-      return addNearbyDamage({
-        action: card.actionDamage,
-        id: idSlot,
-        type: "add",
-      });
+      dispatch(
+        addNearbyDamage({
+          action: card.actionDamage,
+          id: idSlot,
+          type: "add",
+        })
+      );
+      return;
     default:
       return;
   }

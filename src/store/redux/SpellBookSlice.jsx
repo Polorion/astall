@@ -6,6 +6,7 @@ import firePriest from "../../access/img/cards/fire/firePrist.png";
 import redDragon from "../../access/img/cards/fire/redDragon.png";
 import orcWarrior from "../../access/img/cards/fire/orcWarrior.png";
 import fireWave from "../../access/img/cards/fire/fireWave.png";
+import brogul from "../../access/img/cards/fire/brogul.png";
 import minotaur from "../../access/img/cards/fire/minotavr.png";
 import water from "../../access/img/cards/WaterElemental.jpg";
 const SpellBookSlice = createSlice({
@@ -189,19 +190,27 @@ const SpellBookSlice = createSlice({
               "(кроме стен).",
           },
           {
-            name: "ragnaros7s",
+            name: "Баргул",
             isActive: false,
-            type: null,
+            type: "card",
             element: "огонь",
-            actionOnStart: "damageOwner",
+            actionOnStart: "damageAllUnitOwnerAndEnemy",
             actionOnEnd: null,
-            attack: 10,
+            actionOnDeath: null,
+            actionSpell: null,
+            actionDamage: 4,
+            actionDamageSpell: null,
+            attack: 8,
             price: 8,
-            img: ragnaros,
+            img: brogul,
             id: 8,
-            hp: 10,
+            hp: 26,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Баргул\n" +
+              "Огненное существо, стоимость 8\n" +
+              "Атака 8, жизнь 26\n" +
+              "Когда баргул призван, он наносит\n" +
+              "4 урона всем остальным существам.",
           },
         ],
       },
