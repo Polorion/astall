@@ -10,15 +10,35 @@ import {
 import {
   deathSlot,
   idDamageComputer,
+  setDamageSlot,
   setInfoCard,
 } from "../../../store/redux/PlayerSlice";
 import helperDeathAction from "../../../helpers/HeplerDeathAction";
+import SetAttackElements from "../../../helpers/setAttackElements.";
 
 export const Slot = React.memo(
   (props) => {
+    const dispatch = useDispatch();
+    let count = 0;
+    props.bookMana.forEach((el, i) => {
+      if (el.name === props.el.isBusy?.element) {
+        count = i;
+      }
+    });
+    // тут смотрю какою имменно элемент книги надо отслеживать чтобы делать рендер юзефекта
+    useEffect(() => {
+      if (props.el.isBusy?.dependsOnMana) {
+        SetAttackElements(
+          props.el.isBusy.element,
+          props.el.id,
+          props.bookMana,
+          dispatch
+        );
+      }
+    }, [props.bookMana[count].count]);
+    // отслеживаем количество маны и сетаем дамаг у юнита равный количеству элемента маны
     const [damageCard, setDamageCard] = useState();
     const refHP = useRef();
-    const dispatch = useDispatch();
     useEffect(() => {
       if (props.el.isAttack && props.el.isBusy !== null && !props.enemy) {
         dispatch(idDamage({ id: props.el.id, attack: props.el.isBusy.attack }));
@@ -102,6 +122,7 @@ export const Slot = React.memo(
     if (
       next.el.isBusy === prev.el.isBusy &&
       next.el.isAttack === prev.el.isAttack &&
+      next.bookMana === prev.bookMana &&
       next.el.isActive === prev.el.isActive
     ) {
       return true;

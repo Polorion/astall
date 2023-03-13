@@ -8,6 +8,8 @@ import orcWarrior from "../../access/img/cards/fire/orcWarrior.png";
 import fireWave from "../../access/img/cards/fire/fireWave.png";
 import brogul from "../../access/img/cards/fire/brogul.png";
 import minotaur from "../../access/img/cards/fire/minotavr.png";
+import inferno from "../../access/img/cards/fire/inferno.png";
+import fireElemental from "../../access/img/cards/fire/fireElemental.png";
 import water from "../../access/img/cards/WaterElemental.jpg";
 const SpellBookSlice = createSlice({
   name: "typeBook",
@@ -29,7 +31,7 @@ const SpellBookSlice = createSlice({
             actionOnDeath: null,
             actionSpell: null,
             actionDamageSpell: null,
-
+            dependsOnMana: false,
             actionOnEnd: "damageThisUnit",
             actionDamage: 2,
             attack: 4,
@@ -54,8 +56,9 @@ const SpellBookSlice = createSlice({
             actionOnEnd: null,
             actionSpell: null,
             actionDamageSpell: null,
-
+            actionIncreaseMana: null,
             actionOnDeath: null,
+            dependsOnMana: false,
             attack: 0,
             price: 2,
             id: 2,
@@ -77,9 +80,10 @@ const SpellBookSlice = createSlice({
             actionOnEnd: null,
             actionSpell: null,
             actionDamageSpell: null,
-
+            dependsOnMana: false,
             actionOnDeath: "subFireMana",
             actionDamage: 1,
+            actionIncreaseMana: 1,
             attack: 3,
             price: 3,
             id: 3,
@@ -103,8 +107,9 @@ const SpellBookSlice = createSlice({
             actionOnEnd: null,
             actionSpell: null,
             actionDamageSpell: null,
-
+            actionIncreaseMana: null,
             actionOnDeath: null,
+            dependsOnMana: false,
             actionDamage: 1,
             attack: 4,
             price: 3,
@@ -127,7 +132,9 @@ const SpellBookSlice = createSlice({
             actionOnStart: "addDamageNearby",
             actionOnEnd: null,
             actionSpell: null,
+            actionIncreaseMana: null,
             actionDamageSpell: null,
+            dependsOnMana: false,
             actionOnDeath: "subDamageNearby",
             actionDamage: 2,
             attack: 3,
@@ -150,8 +157,10 @@ const SpellBookSlice = createSlice({
             actionOnStart: null,
             actionOnEnd: null,
             actionOnDeath: null,
+            actionIncreaseMana: null,
             actionSpell: "fireWave",
             actionDamage: null,
+            dependsOnMana: false,
             actionDamageSpell: 9,
             attack: null,
             price: 6,
@@ -173,6 +182,8 @@ const SpellBookSlice = createSlice({
             actionOnEnd: null,
             actionOnDeath: "subDamageAllUnit",
             actionSpell: null,
+            actionIncreaseMana: null,
+            dependsOnMana: false,
             actionDamage: 1,
             actionDamageSpell: null,
             attack: 5,
@@ -198,12 +209,102 @@ const SpellBookSlice = createSlice({
             actionOnEnd: null,
             actionOnDeath: null,
             actionSpell: null,
+            actionIncreaseMana: null,
             actionDamage: 4,
             actionDamageSpell: null,
             attack: 8,
             price: 8,
             img: brogul,
+            dependsOnMana: false,
             id: 8,
+            hp: 26,
+            description:
+              "Баргул\n" +
+              "Огненное существо, стоимость 8\n" +
+              "Атака 8, жизнь 26\n" +
+              "Когда баргул призван, он наносит\n" +
+              "4 урона всем остальным существам.",
+          },
+          {
+            name: "Инферно",
+            isActive: false,
+            type: "spell",
+            element: "огонь",
+            actionOnStart: null,
+            actionOnEnd: null,
+            actionOnDeath: null,
+            actionSpell: "meteorite",
+            actionDamage: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: [18, 10],
+            attack: 8,
+            price: 8,
+            img: inferno,
+            dependsOnMana: false,
+            id: 9,
+            hp: 26,
+            description:
+              "Инферно Огненное заклинание, стоимость 9  Наносит 18 урона выбранному существу     и 10 урона всем остальным  существам противника.",
+          },
+          {
+            name: "Огненный элементаль",
+            isActive: false,
+            type: "card",
+            element: "огонь",
+            actionOnStart: "damageAllUnitEnemy",
+            actionOnEnd: null,
+            actionOnDeath: "subIncreaseMana",
+            actionSpell: null,
+            actionDamage: 3,
+            dependsOnMana: true,
+            actionIncreaseMana: 1,
+            actionDamageSpell: null,
+            attack: 0,
+            price: 10,
+            img: fireElemental,
+            id: 10,
+            hp: 37,
+            description:
+              "Огненное существо, стоимость 10, атака равна силе Огня хозяина, жизнь 37 Когда огненный элементаль призван, он наносит 3 урона противнику и его существам. Увеличивает на 1 прирост Силы Огня хозяина.",
+          },
+          {
+            name: "Баргул2",
+            isActive: false,
+            type: "card",
+            element: "огонь",
+            actionOnStart: "damageAllUnitOwnerAndEnemy",
+            actionOnEnd: null,
+            actionOnDeath: null,
+            actionSpell: null,
+            actionDamage: 4,
+            actionDamageSpell: null,
+            attack: 8,
+            price: 8,
+            img: brogul,
+            id: 11,
+            hp: 26,
+            description:
+              "Баргул\n" +
+              "Огненное существо, стоимость 8\n" +
+              "Атака 8, жизнь 26\n" +
+              "Когда баргул призван, он наносит\n" +
+              "4 урона всем остальным существам.",
+          },
+          {
+            name: "Баргул3",
+            isActive: false,
+            type: "card",
+            element: "огонь",
+            actionOnStart: "damageAllUnitOwnerAndEnemy",
+            actionOnEnd: null,
+            actionOnDeath: null,
+            actionSpell: null,
+            actionDamage: 4,
+            actionDamageSpell: null,
+            attack: 8,
+            price: 8,
+            img: brogul,
+            id: 12,
             hp: 26,
             description:
               "Баргул\n" +
@@ -333,12 +434,19 @@ const SpellBookSlice = createSlice({
     },
 
     setManaBook(state, { payload }) {
+      console.log(payload);
       state.book = state.book.map((el) => {
         if (el.name === payload.card.element) {
           if (payload.type === "add") {
-            return { ...el, addMana: el.addMana + payload.card.actionDamage };
+            return {
+              ...el,
+              addMana: el.addMana + payload.card.actionIncreaseMana,
+            };
           } else {
-            return { ...el, addMana: el.addMana - payload.card.actionDamage };
+            return {
+              ...el,
+              addMana: el.addMana - payload.card.actionIncreaseMana,
+            };
           }
         } else {
           return el;

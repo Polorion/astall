@@ -6,10 +6,11 @@ import {
   damageAllOwner,
   damageIsOwner,
   setDamageAllUnits,
+  setDamageSlot,
 } from "../store/redux/PlayerSlice";
 import { damageAll } from "../store/redux/ComputerSlice";
 
-const helperStartAction = (card, idSlot, dispatch) => {
+const helperStartAction = (card, idSlot, dispatch, manaBookCount) => {
   switch (card.actionOnStart) {
     case "damageOwner":
       dispatch(damageIsOwner({ id: idSlot, damage: card.actionDamage }));
@@ -19,6 +20,11 @@ const helperStartAction = (card, idSlot, dispatch) => {
       return;
     case "addFireMana":
       dispatch(setManaBook({ card, type: "add" }));
+      return;
+    case "damageAllUnitEnemy":
+      dispatch(setManaBook({ card, type: "add" }));
+      dispatch(damageAll(card.actionDamage));
+
       return;
     case "addDamageAllUnit":
       dispatch(setDamageAllUnits({ action: card.actionDamage, type: "add" }));

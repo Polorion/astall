@@ -139,6 +139,24 @@ const ComputerSlice = createSlice({
         return { ...el, count: el.count + el.addMana };
       });
     },
+    damageMeteor(state, { payload }) {
+      state.board = state.board.map((el) => {
+        if (el.isBusy) {
+          return {
+            ...el,
+            isBusy: {
+              ...el.isBusy,
+              hp:
+                el.id === payload.id
+                  ? el.isBusy.hp - payload.action[0]
+                  : el.isBusy.hp - payload.action[1],
+            },
+          };
+        } else {
+          return el;
+        }
+      });
+    },
     deathComputerSlot(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload) {
@@ -161,5 +179,6 @@ export const {
   setFalseAnimationComputer,
   addManaComputer,
   damageAll,
+  damageMeteor,
 } = ComputerSlice.actions;
 export default ComputerSlice.reducer;

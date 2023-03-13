@@ -125,8 +125,20 @@ const PlayerSlice = createSlice({
     setInfoCard(state, { payload }) {
       state.infoCard = payload;
     },
-    damageIsOwner(state, { payload }) {
+    setDamageSlot(state, { payload }) {
       console.log(payload);
+      state.board = state.board.map((el) => {
+        if (el.id === payload.id) {
+          return {
+            ...el,
+            isBusy: { ...el.isBusy, attack: el.addDamage + payload.action },
+          };
+        } else {
+          return el;
+        }
+      });
+    },
+    damageIsOwner(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload.id && el.isBusy) {
           return {
@@ -251,5 +263,6 @@ export const {
   setActive,
   setDamageAllUnits,
   damageAllOwner,
+  setDamageSlot,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;

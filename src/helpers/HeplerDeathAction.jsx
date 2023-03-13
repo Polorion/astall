@@ -15,6 +15,8 @@ const helperDeathAction = (card) => {
   switch (card.isBusy.actionOnDeath) {
     case "subFireMana":
       return setManaBook({ card: card.isBusy, type: "sub" });
+    case "subIncreaseMana":
+      return setManaBook({ card: card.isBusy, type: "sub" });
     case "subDamageAllUnit":
       return setDamageAllUnits({
         action: card.isBusy.actionDamage,
