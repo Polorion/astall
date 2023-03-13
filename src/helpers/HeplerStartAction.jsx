@@ -18,7 +18,7 @@ const helperStartAction = (card, idSlot) => {
     case "addFireMana":
       return setManaBook({ card, type: "add" });
     case "addDamageAllUnit":
-      return setDamageAllUnits({ damage: card.actionDamage, type: "add" });
+      return setDamageAllUnits({ action: card.actionDamage, type: "add" });
     case "addDamageNearby":
       return addNearbyDamage({
         action: card.actionDamage,

@@ -16,7 +16,12 @@ const Card = ({ card, active, currentMana }) => {
       <div className={`${S.img} ${active && S.active}`} onClick={handler}>
         <img src={card.img} alt="" />
         {card.type === "card" && (
-          <div className={`${S.attack} ${S.stats}`}>{card.attack}</div>
+          <div className={`${S.attack} ${S.stats}`}>
+            {" "}
+            {card.name === "Командир минотавров"
+              ? card.attack + 1
+              : card.attack}
+          </div>
         )}
         {card.type === "card" && (
           <div className={`${S.hp} ${S.stats}`}>{card.hp}</div>

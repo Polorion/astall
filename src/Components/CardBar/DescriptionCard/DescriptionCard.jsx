@@ -10,7 +10,15 @@ const DescriptionCard = ({ card }) => {
       </div>
       <div className={S.info}>
         <div className={S.price}>
-          {card.type === "card" && <span>атака: {card.attack}, </span>}
+          {card.type === "card" && (
+            <span>
+              атака:{" "}
+              {card.name === "Командир минотавров"
+                ? card.attack + 1
+                : card.attack}
+              ,{" "}
+            </span>
+          )}
           {card.type === "card" && <span>атака:жизни: {card.hp}, </span>}
           <span>цена: {card.price}. </span>
         </div>

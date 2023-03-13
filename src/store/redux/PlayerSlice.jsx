@@ -197,13 +197,22 @@ const PlayerSlice = createSlice({
         if (el.isBusy) {
           return {
             ...el,
-            addDamage: el.addDamage + payload.damage,
-            isBusy: { ...el.isBusy, attack: el.isBusy.attack + payload.damage },
+            addDamage:
+              el.addDamage +
+              (payload.type === "add" ? payload.action : -payload.action),
+            isBusy: {
+              ...el.isBusy,
+              attack:
+                el.isBusy.attack +
+                (payload.type === "add" ? payload.action : -payload.action),
+            },
           };
         } else {
           return {
             ...el,
-            addDamage: el.addDamage + payload.damage,
+            addDamage:
+              el.addDamage +
+              (payload.type === "add" ? payload.action : -payload.action),
           };
         }
       });
