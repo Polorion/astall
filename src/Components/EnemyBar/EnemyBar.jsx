@@ -74,8 +74,8 @@ const EnemyBar = ({ enemy, owner }) => {
     setTimeout(() => {
       dispatch(setFalseAnimation());
       endRoundHandlerPlayer();
+      dispatch(addMana());
     }, numberActiveCarInBoard * 1000);
-    dispatch(addMana());
   };
   const handlerComputer = () => {
     let numberEmptyCarInBoard = 0;
@@ -132,7 +132,12 @@ const EnemyBar = ({ enemy, owner }) => {
                 })}
             </div>
 
-            <Board enemy={enemy} board={owner.board} />
+            <Board
+              enemy={enemy}
+              board={owner.board}
+              allCardPlayer={allCardPlayer}
+              allCardComputer={allCardComputer}
+            />
           </div>
         </div>
       </div>

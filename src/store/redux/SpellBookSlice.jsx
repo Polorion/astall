@@ -6,7 +6,9 @@ import firePriest from "../../access/img/cards/fire/firePrist.png";
 import redDragon from "../../access/img/cards/fire/redDragon.png";
 import orcWarrior from "../../access/img/cards/fire/orcWarrior.png";
 import fireWave from "../../access/img/cards/fire/fireWave.png";
+import armageddon from "../../access/img/cards/fire/armagedon.png";
 import brogul from "../../access/img/cards/fire/brogul.png";
+import magickDragon from "../../access/img/cards/fire/bigDragon.png";
 import minotaur from "../../access/img/cards/fire/minotavr.png";
 import inferno from "../../access/img/cards/fire/inferno.png";
 import fireElemental from "../../access/img/cards/fire/fireElemental.png";
@@ -19,7 +21,7 @@ const SpellBookSlice = createSlice({
     book: [
       {
         name: "огонь",
-        count: 110,
+        count: 100,
         addMana: 1,
         cards: [
           {
@@ -268,30 +270,26 @@ const SpellBookSlice = createSlice({
               "Огненное существо, стоимость 10, атака равна силе Огня хозяина, жизнь 37 Когда огненный элементаль призван, он наносит 3 урона противнику и его существам. Увеличивает на 1 прирост Силы Огня хозяина.",
           },
           {
-            name: "Баргул2",
+            name: "Армагеддон",
             isActive: false,
-            type: "card",
+            type: "spell",
             element: "огонь",
-            actionOnStart: "damageAllUnitOwnerAndEnemy",
+            actionOnStart: null,
             actionOnEnd: null,
             actionOnDeath: null,
-            actionSpell: null,
-            actionDamage: 4,
+            actionSpell: "armageddonAction",
+            actionDamage: null,
             actionDamageSpell: null,
-            attack: 8,
-            price: 8,
-            img: brogul,
-            id: 11,
-            hp: 26,
+            attack: 0,
+            price: 11,
+            img: armageddon,
+            id: 0,
+            hp: 0,
             description:
-              "Баргул\n" +
-              "Огненное существо, стоимость 8\n" +
-              "Атака 8, жизнь 26\n" +
-              "Когда баргул призван, он наносит\n" +
-              "4 урона всем остальным существам.",
+              "Армагеддон Огненное заклинание, стоимость 11 Наносит (8+сила Огня мага) урона противнику и всем существам в игре.",
           },
           {
-            name: "Баргул3",
+            name: "Магический дракон",
             isActive: false,
             type: "card",
             element: "огонь",
@@ -299,19 +297,15 @@ const SpellBookSlice = createSlice({
             actionOnEnd: null,
             actionOnDeath: null,
             actionSpell: null,
-            actionDamage: 4,
+            actionDamage: null,
             actionDamageSpell: null,
-            attack: 8,
-            price: 8,
-            img: brogul,
+            attack: 9,
+            price: 12,
+            img: magickDragon,
             id: 12,
-            hp: 26,
+            hp: 40,
             description:
-              "Баргул\n" +
-              "Огненное существо, стоимость 8\n" +
-              "Атака 8, жизнь 26\n" +
-              "Когда баргул призван, он наносит\n" +
-              "4 урона всем остальным существам.",
+              " Магический дракон Огненное существо, стоимость 12 Атака 9, жизнь 40 Дракон увеличивает на 50% весь урон, нанесенный заклинаниями хозяина.",
           },
         ],
       },

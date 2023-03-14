@@ -63,7 +63,7 @@ const ComputerSlice = createSlice({
           attack: 110,
           price: 2,
           id: 2,
-          hp: 5,
+          hp: 1115,
           img: fireWall,
           description:
             "Огненное существо, стоимость 2\n" +
@@ -119,6 +119,9 @@ const ComputerSlice = createSlice({
         }
       });
     },
+    damageComputerOwner(state, { payload }) {
+      state.hp -= payload;
+    },
     idDamage(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload.id && el.isBusy === null) {
@@ -148,8 +151,8 @@ const ComputerSlice = createSlice({
               ...el.isBusy,
               hp:
                 el.id === payload.id
-                  ? el.isBusy.hp - payload.action[0]
-                  : el.isBusy.hp - payload.action[1],
+                  ? el.isBusy.hp - payload.actionOne
+                  : el.isBusy.hp - payload.actionTwo,
             },
           };
         } else {
@@ -180,5 +183,6 @@ export const {
   addManaComputer,
   damageAll,
   damageMeteor,
+  damageComputerOwner,
 } = ComputerSlice.actions;
 export default ComputerSlice.reducer;

@@ -12,7 +12,7 @@ import { useEffect, useRef } from "react";
 import helperStartAction from "../../helpers/HeplerStartAction";
 import helperSpellAction from "../../helpers/HelperSpellAction";
 
-const Board = ({ board, enemy }) => {
+const Board = ({ board, enemy, allCardPlayer, allCardComputer }) => {
   const activeCard = useSelector((state) => state.spellBook.choiceCard);
   const activeElement = useSelector((state) => state.spellBook.choiceElement);
   const bookMana = useSelector((state) =>
@@ -52,9 +52,17 @@ const Board = ({ board, enemy }) => {
       dispatch(
         setManaElement({ name: refElement.current, count: ref.current.price })
       );
-      helperSpellAction(ref.current, board, id, dispatch);
+      helperSpellAction(
+        ref.current,
+        board,
+        id,
+        dispatch,
+        bookMana,
+        allCardPlayer
+      );
     }
   };
+  console.log(board, 111);
   return (
     <div className={S.body}>
       <Slot enemy={enemy} el={board[0]} handler={handler} bookMana={bookMana} />
