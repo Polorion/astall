@@ -12,6 +12,7 @@ import {
   setDamageAllUnits,
   setDamageSlot,
   setDefenceOwner,
+  setSpellImmunity,
 } from "../store/redux/PlayerSlice";
 import { damageAll } from "../store/redux/ComputerSlice";
 
@@ -19,6 +20,9 @@ const helperStartAction = (card, idSlot, dispatch, manaBookCount) => {
   switch (card.actionOnStart) {
     case "damageOwner":
       dispatch(damageIsOwner({ id: idSlot, damage: card.actionDamage }));
+      return;
+    case "frozenFairy":
+      dispatch(setSpellImmunity({ id: idSlot, type: true }));
       return;
     case "iceGuardAction":
       dispatch(setDefenceOwner(card.actionDamage));

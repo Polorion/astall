@@ -51,6 +51,7 @@ const ComputerSlice = createSlice({
             "2 урона соседним существам хозяина.",
         },
         isAttack: false,
+        spellImmunity: false,
       },
       {
         id: 2,
@@ -74,6 +75,7 @@ const ComputerSlice = createSlice({
             "существам противника.",
         },
         isAttack: false,
+        spellImmunity: false,
       },
       {
         id: 3,
@@ -106,16 +108,19 @@ const ComputerSlice = createSlice({
             "от заклинаний и способностей существ.",
         },
         isAttack: false,
+        spellImmunity: true,
       },
       {
         id: 4,
         isBusy: null,
         isAttack: false,
+        spellImmunity: false,
       },
       {
         id: 5,
         isBusy: null,
         isAttack: false,
+        spellImmunity: false,
       },
     ],
   },
@@ -136,9 +141,8 @@ const ComputerSlice = createSlice({
       });
     },
     damageAll(state, { payload }) {
-      console.log(payload);
       state.board = state.board.map((el) => {
-        if (el.isBusy && !el.isBusy.spellImmunity) {
+        if (el.isBusy && !el.spellImmunity) {
           return {
             ...el,
             isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload },
@@ -173,7 +177,7 @@ const ComputerSlice = createSlice({
     },
     damageMeteor(state, { payload }) {
       state.board = state.board.map((el) => {
-        if (el.isBusy && !el.isBusy.spellImmunity) {
+        if (el.isBusy && !el.spellImmunity) {
           return {
             ...el,
             isBusy: {

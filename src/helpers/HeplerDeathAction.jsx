@@ -7,6 +7,7 @@ import {
   damageThisUnit,
   setDamageAllUnits,
   setDefenceOwner,
+  setSpellImmunity,
   subNearbyDamage,
 } from "../store/redux/PlayerSlice";
 import { damageAll } from "../store/redux/ComputerSlice";
@@ -18,6 +19,8 @@ const helperDeathAction = (card) => {
       return setManaBook({ card: card.isBusy, element: "огонь", type: "sub" });
     case "seaSageAction":
       return setManaBook({ card: card.isBusy, element: "воздух", type: "sub" });
+    case "frozenFairy":
+      return setSpellImmunity({ id: card.id, type: false });
 
     case "subIncreaseMana":
       return setManaBook({ card: card.isBusy, element: "огонь", type: "sub" });

@@ -20,30 +20,40 @@ const PlayerSlice = createSlice({
         isBusy: null,
         isAttack: false,
         addDamage: 0,
+        defence: 0,
+        spellImmunity: false,
       },
       {
         id: 2,
         isBusy: null,
         isAttack: false,
         addDamage: 0,
+        defence: 0,
+        spellImmunity: false,
       },
       {
         id: 3,
         isBusy: null,
         isAttack: false,
         addDamage: 0,
+        defence: 0,
+        spellImmunity: false,
       },
       {
         id: 4,
         isBusy: null,
         isAttack: false,
         addDamage: 0,
+        defence: 0,
+        spellImmunity: false,
       },
       {
         id: 5,
         isBusy: null,
         isAttack: false,
         addDamage: 0,
+        defence: 0,
+        spellImmunity: false,
       },
     ],
   },
@@ -192,7 +202,6 @@ const PlayerSlice = createSlice({
       });
     },
     idDamageComputer(state, { payload }) {
-      console.log(payload, state.defence);
       state.board = state.board.map((el) => {
         if (el.id === payload.id && el.isBusy === null) {
           state.hp =
@@ -256,6 +265,16 @@ const PlayerSlice = createSlice({
         return { ...el, isAttack: false };
       });
     },
+    setSpellImmunity(state, { payload }) {
+      console.log(payload);
+      state.board = state.board.map((el) => {
+        if (el.id === payload.id) {
+          return { ...el, spellImmunity: payload.type };
+        } else {
+          return el;
+        }
+      });
+    },
   },
 });
 
@@ -275,5 +294,6 @@ export const {
   setDamageSlot,
   damageFaceOwner,
   setDefenceOwner,
+  setSpellImmunity,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;
