@@ -9,9 +9,12 @@ import {
   addNearbyDamage,
   damageAllOwner,
   damageIsOwner,
+  healOwner,
   setDamageAllUnits,
   setDamageSlot,
   setDefenceOwner,
+  setDefenceSlot,
+  setGoToAttack,
   setSpellImmunity,
 } from "../store/redux/PlayerSlice";
 import { damageAll } from "../store/redux/ComputerSlice";
@@ -23,6 +26,14 @@ const helperStartAction = (card, idSlot, dispatch, manaBookCount) => {
       return;
     case "frozenFairy":
       dispatch(setSpellImmunity({ id: idSlot, type: true }));
+      return;
+    case "seaTankAction":
+      dispatch(
+        setDefenceSlot({ id: idSlot, defence: card.actionDamage, type: "add" })
+      );
+      return;
+    case "waterCommander":
+      dispatch(setGoToAttack({ id: idSlot, type: true }));
       return;
     case "iceGuardAction":
       dispatch(setDefenceOwner(card.actionDamage));
@@ -44,6 +55,11 @@ const helperStartAction = (card, idSlot, dispatch, manaBookCount) => {
     case "damageAllUnitEnemy":
       dispatch(setManaBook({ card, element: "огонь", type: "add" }));
       dispatch(damageAll(card.actionDamage));
+      return;
+    case "elementalWaterAction":
+      dispatch(setManaBook({ card, element: "вода", type: "add" }));
+      dispatch(healOwner({ hp: card.actionDamage }));
+
       return;
     case "addDamageAllUnit":
       dispatch(setDamageAllUnits({ action: card.actionDamage, type: "add" }));

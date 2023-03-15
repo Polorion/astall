@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  setManaComputer,
   damageAll,
   damageComputerOwner,
   damageMeteor,
@@ -30,6 +31,25 @@ const helperSpellActionComputer = (
           )
         )
       );
+      return;
+    case "acidRain":
+      dispatch(
+        damageAll(
+          calculatePercentage(
+            card.actionDamageSpell,
+            50 * countMagicDragonInBoard
+          )
+        )
+      );
+      dispatch(
+        damageAllOwner(
+          calculatePercentage(
+            card.actionDamageSpell,
+            50 * countMagicDragonInBoard
+          )
+        )
+      );
+      dispatch(setManaComputer());
       return;
     case "armageddonAction":
       dispatch(

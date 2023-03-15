@@ -55,12 +55,12 @@ export const Slot = React.memo(
           if (!props.enemy) {
             dispatch(deathSlot(props.el.id));
             if (props.el.isBusy?.actionOnDeath) {
-              dispatch(helperDeathAction(props.el));
+              helperDeathAction(props.el, dispatch);
             }
           } else {
             dispatch(deathComputerSlot(props.el.id));
             if (props.el.isBusy?.actionOnDeath) {
-              dispatch(helperDeathAction(props.el));
+              helperDeathAction(props.el, dispatch);
             }
           }
         }, 980);
@@ -104,6 +104,7 @@ export const Slot = React.memo(
          ${props.el.isAttack && props.enemy && S.goComputer} ${
           props.el.isBusy.isActive &&
           !props.el.isBusy.attackFirstRound &&
+          !props.el.attackFirstRound &&
           S.timer
         } `}
       >

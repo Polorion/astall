@@ -170,9 +170,13 @@ const ComputerSlice = createSlice({
         }
       });
     },
-    addManaComputer(state, { payload }) {
+    setManaComputer(state, { payload }) {
       state.bookMana = state.bookMana.map((el) => {
-        return { ...el, count: el.count + el.addMana };
+        if (payload === "add") {
+          return { ...el, count: el.count + el.addMana };
+        } else {
+          return { ...el, count: el.count - el.addMana };
+        }
       });
     },
     damageMeteor(state, { payload }) {
@@ -213,7 +217,7 @@ export const {
   deathComputerSlot,
   setAnimationComputer,
   setFalseAnimationComputer,
-  addManaComputer,
+  setManaComputer,
   damageAll,
   damageMeteor,
   damageComputerOwner,

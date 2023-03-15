@@ -18,7 +18,10 @@ import waterDefender from "../../access/img/cards/water/waterDefender.png";
 import frozenFairy from "../../access/img/cards/water/frozenFairy.png";
 import seaSage from "../../access/img/cards/water/seaSage.png";
 import iceGuard from "../../access/img/cards/water/iceGuard.png";
-import water from "../../access/img/cards/WaterElemental.jpg";
+import seaTank from "../../access/img/cards/water/seaTank.png";
+import acidRain from "../../access/img/cards/water/asidRain.png";
+import waterCommander from "../../access/img/cards/water/seaComandor.png";
+import waterElemental from "../../access/img/cards/water/waterElemental.png";
 const SpellBookSlice = createSlice({
   name: "typeBook",
   initialState: {
@@ -488,28 +491,105 @@ const SpellBookSlice = createSlice({
               "урон, нанесенный хозяину.",
           },
           {
-            name: "ragqnaros6s",
-            isActive: false,
-            type: null,
-            attack: 10,
-            price: 5,
+            name: "Морской броненосец",
             id: 19,
-            hp: 10,
-            img: water,
+            isActive: false,
+            type: "card",
+            element: "вода",
+            focus: "owner",
+            actionOnStart: "seaTankAction",
+            actionOnDeath: "seaTankAction",
+            actionOnEnd: null,
+            actionSpell: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: 5,
+            spellImmunity: false,
+            attack: 5,
+            price: 7,
+            hp: 16,
+            img: seaTank,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "\t\n" +
+              "Морской броненосец\n" +
+              "Водное существо, стоимость 7\n" +
+              "Атака 5, жизнь 16\n" +
+              "Весь урон, нанесенный по\n" +
+              "Морскому броненосцу, уменьшается на 5.",
           },
           {
-            name: "ragqnaros7s",
-            isActive: false,
-            type: null,
-            attack: 10,
-            price: 5,
-            img: water,
+            name: "Отравленный Дождь",
             id: 20,
-            hp: 10,
+            isActive: false,
+            type: "spell",
+            element: "вода",
+            focus: "computer",
+            actionOnStart: null,
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: "acidRain",
+            actionIncreaseMana: 1,
+            actionDamageSpell: 15,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 0,
+            price: 8,
+            hp: 0,
+            img: acidRain,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "Отравленный Дождь Водное заклинание, стоимость 8\n" +
+              "Наносит 15 урона по всем существам.\n" +
+              "Уменьшает на 1 все Силы соперника.",
+          },
+          {
+            name: "Подводный командир",
+            id: 21,
+            isActive: false,
+            type: "card",
+            element: "вода",
+            focus: "owner",
+            actionOnStart: "waterCommander",
+            actionOnDeath: "waterCommander",
+            actionOnEnd: null,
+            actionSpell: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 7,
+            price: 9,
+            hp: 35,
+            img: waterCommander,
+            description:
+              "Подводный командир Водное существо, стоимость 9 Атака 7, жизнь 35 Мерфолк предводитель позволяет существам хозяина, призванным в соседние слоты, атаковать в том же ходу, в котором они призваны.",
+          },
+          {
+            name: "Элементаль воды",
+            isActive: false,
+            type: "card",
+            element: "вода",
+            actionOnStart: "elementalWaterAction",
+            actionOnEnd: null,
+            actionOnDeath: "elementalWaterAction",
+            actionSpell: null,
+            actionDamage: 10,
+            dependsOnMana: true,
+            actionIncreaseMana: 1,
+            actionDamageSpell: null,
+            attack: 0,
+            price: 10,
+            img: waterElemental,
+            id: 22,
+            hp: 37,
+            description:
+              "Элементаль воды, стоимость 10, атака\n" +
+              "равна Силе Воды хозяина, жизнь 37\n" +
+              "Когда водный элементаль призван, он\n" +
+              "лечит хозяину 10 жизни. Увеличивает\n" +
+              "на 1 прирост Силы Воды хозяина.",
           },
         ],
       },
@@ -517,6 +597,33 @@ const SpellBookSlice = createSlice({
         name: "воздух",
         count: 10,
         addMana: 1,
+        cards: [
+          {
+            name: "Отравленный Дождь",
+            id: 20,
+            isActive: false,
+            type: "spell",
+            element: "вода",
+            focus: "computer",
+            actionOnStart: null,
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: "acidRain",
+            actionIncreaseMana: 1,
+            actionDamageSpell: 15,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 0,
+            price: 8,
+            hp: 0,
+            img: acidRain,
+            description:
+              "Отравленный Дождь Водное заклинание, стоимость 8\n" +
+              "Наносит 15 урона по всем существам.\n" +
+              "Уменьшает на 1 все Силы соперника.",
+          },
+        ],
       },
     ],
   },

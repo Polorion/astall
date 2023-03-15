@@ -17,7 +17,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { addMana } from "../../store/redux/SpellBookSlice";
 import {
-  addManaComputer,
+  setManaComputer,
   setAnimationComputer,
   setFalseAnimationComputer,
 } from "../../store/redux/ComputerSlice";
@@ -56,6 +56,7 @@ const EnemyBar = ({ enemy, owner }) => {
     let numberEmptyCarInBoard = 0;
     let numberActiveCarInBoard = 0;
     allCardPlayer.map((el, i) => {
+      console.log(el);
       if (!el.isBusy) {
         numberEmptyCarInBoard = numberEmptyCarInBoard + 1;
       } else {
@@ -66,6 +67,12 @@ const EnemyBar = ({ enemy, owner }) => {
           }, 1000 * i - numberEmptyCarInBoard * 1000);
         } else {
           setTimeout(() => {
+            dispatch(setActive({ id: el.id, type: true }));
+          }, 1000 * i - numberEmptyCarInBoard * 1000);
+        }
+        if (el.attackFirstRound) {
+          setTimeout(() => {
+            dispatch(setAnimationPlayer({ id: el.id, type: true }));
             dispatch(setActive({ id: el.id, type: true }));
           }, 1000 * i - numberEmptyCarInBoard * 1000);
         }
@@ -93,7 +100,7 @@ const EnemyBar = ({ enemy, owner }) => {
     setTimeout(() => {
       dispatch(setFalseAnimationComputer());
     }, numberActiveCarInBoard * 1000);
-    dispatch(addManaComputer());
+    dispatch(setManaComputer("add"));
   };
   return (
     <div>

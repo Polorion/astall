@@ -7,36 +7,67 @@ import {
   damageThisUnit,
   setDamageAllUnits,
   setDefenceOwner,
+  setDefenceSlot,
+  setGoToAttack,
   setSpellImmunity,
   subNearbyDamage,
 } from "../store/redux/PlayerSlice";
 import { damageAll } from "../store/redux/ComputerSlice";
 
-const helperDeathAction = (card) => {
+const helperDeathAction = (card, dispatch) => {
   console.log(card);
   switch (card.isBusy.actionOnDeath) {
     case "subFireMana":
-      return setManaBook({ card: card.isBusy, element: "огонь", type: "sub" });
+      dispatch(
+        setManaBook({ card: card.isBusy, element: "огонь", type: "sub" })
+      );
+      return;
+    case "seaTankAction":
+      dispatch(
+        setDefenceSlot({
+          id: card.id,
+          defence: card.isBusy.actionDamage,
+          type: "sub",
+        })
+      );
+      return;
+    case "waterCommander":
+      dispatch(setGoToAttack({ id: card.id, type: false }));
+      return;
     case "seaSageAction":
-      return setManaBook({ card: card.isBusy, element: "воздух", type: "sub" });
+      dispatch(
+        setManaBook({ card: card.isBusy, element: "воздух", type: "sub" })
+      );
+      return;
     case "frozenFairy":
-      return setSpellImmunity({ id: card.id, type: false });
+      dispatch(setSpellImmunity({ id: card.id, type: false }));
+      return;
 
     case "subIncreaseMana":
-      return setManaBook({ card: card.isBusy, element: "огонь", type: "sub" });
+      dispatch(
+        setManaBook({ card: card.isBusy, element: "огонь", type: "sub" })
+      );
+      return;
     case "iceGuardAction":
-      return setDefenceOwner(0);
+      dispatch(setDefenceOwner(0));
+      return;
     case "subDamageAllUnit":
-      return setDamageAllUnits({
-        action: card.isBusy.actionDamage,
-        type: "sub",
-      });
+      dispatch(
+        setDamageAllUnits({
+          action: card.isBusy.actionDamage,
+          type: "sub",
+        })
+      );
+      return;
     case "subDamageNearby":
-      return addNearbyDamage({
-        action: card.isBusy.actionDamage,
-        id: card.id,
-        type: "sub",
-      });
+      dispatch(
+        addNearbyDamage({
+          action: card.isBusy.actionDamage,
+          id: card.id,
+          type: "sub",
+        })
+      );
+      return;
     default:
       return;
   }

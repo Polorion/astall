@@ -6,6 +6,7 @@ import fireWall from "../../access/img/cards/fire/fireWall.png";
 import board from "../../Components/Board/Board";
 import computerSlice from "./ComputerSlice";
 import { calculatePercentage } from "../../helpers/calculatePercentage";
+import { calculateDamage } from "../../helpers/calculateDamage";
 const PlayerSlice = createSlice({
   name: "Player",
   initialState: {
@@ -22,6 +23,7 @@ const PlayerSlice = createSlice({
         addDamage: 0,
         defence: 0,
         spellImmunity: false,
+        attackFirstRound: false,
       },
       {
         id: 2,
@@ -30,6 +32,7 @@ const PlayerSlice = createSlice({
         addDamage: 0,
         defence: 0,
         spellImmunity: false,
+        attackFirstRound: false,
       },
       {
         id: 3,
@@ -38,6 +41,7 @@ const PlayerSlice = createSlice({
         addDamage: 0,
         defence: 0,
         spellImmunity: false,
+        attackFirstRound: false,
       },
       {
         id: 4,
@@ -46,6 +50,7 @@ const PlayerSlice = createSlice({
         addDamage: 0,
         defence: 0,
         spellImmunity: false,
+        attackFirstRound: false,
       },
       {
         id: 5,
@@ -54,6 +59,7 @@ const PlayerSlice = createSlice({
         addDamage: 0,
         defence: 0,
         spellImmunity: false,
+        attackFirstRound: false,
       },
     ],
   },
@@ -70,6 +76,10 @@ const PlayerSlice = createSlice({
     damageFaceOwner(state, { payload }) {
       state.hp -= calculatePercentage(payload, state.defence, false);
     },
+    healOwner(state, { payload }) {
+      state.hp += payload.hp;
+    },
+
     setDefenceOwner(state, { payload }) {
       state.defence = payload;
     },
@@ -211,7 +221,10 @@ const PlayerSlice = createSlice({
         if (el.id === payload.id && el.isBusy) {
           return {
             ...el,
-            isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload.attack },
+            isBusy: {
+              ...el.isBusy,
+              hp: el.isBusy.hp - calculateDamage(payload.attack, el.defence),
+            },
           };
         } else {
           return el;
@@ -265,11 +278,37 @@ const PlayerSlice = createSlice({
         return { ...el, isAttack: false };
       });
     },
+    setDefenceSlot(state, { payload }) {
+      state.board = state.board.map((el) => {
+        if (el.id === payload.id) {
+          if (payload.type === "add") {
+            return { ...el, defence: el.defence + payload.defence };
+          } else {
+            console.log(payload.defence);
+            return { ...el, defence: el.defence - payload.defence };
+          }
+        } else {
+          return el;
+        }
+      });
+    },
     setSpellImmunity(state, { payload }) {
       console.log(payload);
       state.board = state.board.map((el) => {
         if (el.id === payload.id) {
           return { ...el, spellImmunity: payload.type };
+        } else {
+          return el;
+        }
+      });
+    },
+    setGoToAttack(state, { payload }) {
+      state.board = state.board.map((el) => {
+        if (el.id === payload.id - 1) {
+          return { ...el, attackFirstRound: payload.type };
+        }
+        if (el.id === payload.id + 1) {
+          return { ...el, attackFirstRound: payload.type };
         } else {
           return el;
         }
@@ -295,5 +334,8 @@ export const {
   damageFaceOwner,
   setDefenceOwner,
   setSpellImmunity,
+  setDefenceSlot,
+  setGoToAttack,
+  healOwner,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;
