@@ -12,6 +12,12 @@ import magickDragon from "../../access/img/cards/fire/bigDragon.png";
 import minotaur from "../../access/img/cards/fire/minotavr.png";
 import inferno from "../../access/img/cards/fire/inferno.png";
 import fireElemental from "../../access/img/cards/fire/fireElemental.png";
+import meditation from "../../access/img/cards/water/meditation.png";
+import waterSpirit from "../../access/img/cards/water/waterSpirit.png";
+import waterDefender from "../../access/img/cards/water/waterDefender.png";
+import frozenFairy from "../../access/img/cards/water/frozenFairy.png";
+import seaSage from "../../access/img/cards/water/seaSage.png";
+import iceGuard from "../../access/img/cards/water/iceGuard.png";
 import water from "../../access/img/cards/WaterElemental.jpg";
 const SpellBookSlice = createSlice({
   name: "typeBook",
@@ -156,6 +162,7 @@ const SpellBookSlice = createSlice({
             isActive: false,
             type: "spell",
             element: "огонь",
+            focus: "computer",
             actionOnStart: null,
             actionOnEnd: null,
             actionOnDeath: null,
@@ -234,6 +241,7 @@ const SpellBookSlice = createSlice({
             element: "огонь",
             actionOnStart: null,
             actionOnEnd: null,
+            focus: "computer",
             actionOnDeath: null,
             actionSpell: "meteorite",
             actionDamage: null,
@@ -277,6 +285,7 @@ const SpellBookSlice = createSlice({
             actionOnStart: null,
             actionOnEnd: null,
             actionOnDeath: null,
+            focus: "computer",
             actionSpell: "armageddonAction",
             actionDamage: null,
             actionDamageSpell: null,
@@ -315,79 +324,168 @@ const SpellBookSlice = createSlice({
         addMana: 1,
         cards: [
           {
-            name: "ragnarosqs",
+            name: "Медитация",
             isActive: false,
-            type: null,
-            attack: 10,
+            type: "spell",
             element: "вода",
+            focus: "owner",
             actionOnStart: null,
+            actionOnDeath: null,
             actionOnEnd: null,
-            price: 5,
-            id: 11,
-            hp: 10,
-            img: water,
-            description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
-          },
-          {
-            name: "ragnarqoss",
-            isActive: false,
-            type: null,
-            attack: 10,
-            price: 5,
-            id: 12,
-            hp: 10,
-            img: water,
-            description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
-          },
-          {
-            name: "ragnaroqs2s",
-            isActive: false,
-            type: null,
-            attack: 10,
-            price: 5,
+            actionSpell: "meditationAction",
+            actionIncreaseMana: 1,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: null,
+            attack: 0,
+            price: 1,
             id: 13,
-            hp: 10,
-            img: water,
+            hp: 0,
+            img: meditation,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "\t\n" +
+              "Медитация\n" +
+              "Водное заклинание, стоимость 1\n" +
+              "Увеличивает магу силу Огня,\n" +
+              "Воздуха и Земли на 1.",
           },
           {
-            name: "ragnarqos3s",
+            name: "Водный дух",
             isActive: false,
-            type: null,
-            attack: 10,
-            price: 5,
+            type: "card",
+            element: "вода",
+            focus: "owner",
+            actionOnStart: null,
+            actionOnDeath: null,
+            actionOnEnd: "waterSpiritAction",
+            actionSpell: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: 2,
+            attack: 5,
+            price: 2,
             id: 14,
-            hp: 10,
-            img: water,
+            hp: 22,
+            img: waterSpirit,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "\t\n" +
+              "Водный дух\n" +
+              "Водное существо, стоимость 2\n" +
+              "Атака 5, жизнь 22\n" +
+              "Водный дух наносит 2 урона\n" +
+              "хозяину каждый ход.",
           },
           {
-            name: "ragnarqos4s",
+            name: "Водный страж",
             isActive: false,
-            type: null,
-            attack: 10,
-            price: 5,
+            type: "card",
+            element: "вода",
+            focus: "owner",
+            actionOnStart: "waterDefenderAction",
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: null,
+            actionIncreaseMana: 2,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: null,
+            attack: 3,
+            price: 3,
             id: 15,
             hp: 10,
-            img: water,
+            img: waterDefender,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "\t\n" +
+              "Водный страж\n" +
+              "Водное существо, стоимость 3\n" +
+              "Атака 3, жизнь 10\n" +
+              "Когда Водный страж призван, он\n" +
+              "увеличивает Силу Огня хозяина на 2.",
           },
           {
-            name: "ragnqaros5s",
+            name: "Замершая фея",
             isActive: false,
-            type: null,
-            attack: 10,
-            price: 5,
+            type: "card",
+            element: "вода",
+            focus: "owner",
+            actionOnStart: "waterDefenderAction",
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: null,
+            actionIncreaseMana: 2,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: true,
+            attack: 4,
+            price: 4,
             id: 16,
-            hp: 10,
-            img: water,
+            hp: 12,
+            img: frozenFairy,
             description:
-              "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
+              "\t\n" +
+              "Замершая фея\n" +
+              "Водное существо, стоимость 4\n" +
+              "Атака 4, жизнь 12\n" +
+              "Замершая фея не получает урона\n" +
+              "от заклинаний и способностей существ.",
+          },
+          {
+            name: "Морской мудрец",
+            id: 17,
+            isActive: false,
+            type: "card",
+            element: "вода",
+            focus: "owner",
+            actionOnStart: "seaSageAction",
+            actionOnDeath: "seaSageAction",
+            actionOnEnd: null,
+            actionSpell: null,
+            actionIncreaseMana: 1,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 3,
+            price: 5,
+            hp: 16,
+            img: seaSage,
+            description:
+              "\t\n" +
+              "Морской мудрец\n" +
+              "Водное существо, стоимость 5\n" +
+              "Атака 3, жизнь 16\n" +
+              "Мерфолк мудрец увеличивает прирост\n" +
+              "Силы Воздуха хозяина на 1.",
+          },
+          {
+            name: "Ледяной страж",
+            id: 18,
+            isActive: false,
+            type: "card",
+            element: "вода",
+            focus: "owner",
+            actionOnStart: "iceGuardAction",
+            actionOnDeath: "iceGuardAction",
+            actionOnEnd: null,
+            actionSpell: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: 50,
+            spellImmunity: false,
+            attack: 3,
+            price: 6,
+            hp: 20,
+            img: iceGuard,
+            description:
+              "\t\n" +
+              "Ледяной страж\n" +
+              "Водное существо, стоимость 6\n" +
+              "Атака 3, жизнь 20\n" +
+              "Ледяной страж уменьшает на 50% весь\n" +
+              "урон, нанесенный хозяину.",
           },
           {
             name: "ragqnaros6s",
@@ -395,7 +493,7 @@ const SpellBookSlice = createSlice({
             type: null,
             attack: 10,
             price: 5,
-            id: 17,
+            id: 19,
             hp: 10,
             img: water,
             description:
@@ -408,7 +506,7 @@ const SpellBookSlice = createSlice({
             attack: 10,
             price: 5,
             img: water,
-            id: 18,
+            id: 20,
             hp: 10,
             description:
               "Lorem Ipsum не только успешно пережил без заметных изменений пять веков,  недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.",
@@ -416,7 +514,7 @@ const SpellBookSlice = createSlice({
         ],
       },
       {
-        name: "земля",
+        name: "воздух",
         count: 10,
         addMana: 1,
       },
@@ -428,9 +526,8 @@ const SpellBookSlice = createSlice({
     },
 
     setManaBook(state, { payload }) {
-      console.log(payload);
       state.book = state.book.map((el) => {
-        if (el.name === payload.card.element) {
+        if (el.name === payload.element) {
           if (payload.type === "add") {
             return {
               ...el,
@@ -448,8 +545,27 @@ const SpellBookSlice = createSlice({
       });
     },
     addMana(state, { payload }) {
+      if (payload?.type) {
+        state.book = state.book.map((el) => {
+          if (el.name === payload.type) {
+            return el;
+          } else {
+            return { ...el, count: el.count + el.addMana };
+          }
+        });
+      } else {
+        state.book = state.book.map((el) => {
+          return { ...el, count: el.count + el.addMana };
+        });
+      }
+    },
+    addCurrentMana(state, { payload }) {
       state.book = state.book.map((el) => {
-        return { ...el, count: el.count + el.addMana };
+        if (el.name === payload.name) {
+          return { ...el, count: el.count + payload.count };
+        } else {
+          return el;
+        }
       });
     },
 
@@ -477,5 +593,6 @@ export const {
   setManaBook,
   setManaElement,
   addMana,
+  addCurrentMana,
 } = SpellBookSlice.actions;
 export default SpellBookSlice.reducer;

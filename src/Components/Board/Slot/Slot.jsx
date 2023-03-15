@@ -63,7 +63,7 @@ export const Slot = React.memo(
               dispatch(helperDeathAction(props.el));
             }
           }
-        }, 1000);
+        }, 980);
       }
 
       if (refHP.current > props.el.isBusy?.hp) {

@@ -5,8 +5,10 @@ import {
   damageMeteor,
 } from "../store/redux/ComputerSlice";
 import { damageAllOwner, damageIsOwner } from "../store/redux/PlayerSlice";
+import { addMana } from "../store/redux/SpellBookSlice";
+import { calculatePercentage } from "./calculatePercentage";
 
-const helperSpellAction = (
+const helperSpellActionComputer = (
   card,
   board,
   id,
@@ -69,8 +71,4 @@ const helperSpellAction = (
   }
 };
 
-export default helperSpellAction;
-
-function calculatePercentage(num, percent) {
-  return Math.ceil(num + (percent / 100) * num);
-}
+export default helperSpellActionComputer;

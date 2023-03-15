@@ -1,16 +1,26 @@
 import { useDispatch } from "react-redux";
 import * as React from "react";
 import { addMana } from "../store/redux/SpellBookSlice";
-import { damageIsOwner, damageThisUnit } from "../store/redux/PlayerSlice";
+import {
+  damageFaceOwner,
+  damageIsOwner,
+  damageThisUnit,
+} from "../store/redux/PlayerSlice";
 import { damageAll } from "../store/redux/ComputerSlice";
 
-const helperEndAction = (props) => {
-  switch (props.isBusy.actionOnEnd) {
+const helperEndAction = (el, dispatch) => {
+  switch (el.isBusy.actionOnEnd) {
     case "damageThisUnit":
-      return damageThisUnit({
-        id: props.id,
-        damage: props.isBusy.actionDamage,
-      });
+      dispatch(
+        damageThisUnit({
+          id: el.id,
+          damage: el.isBusy.actionDamage,
+        })
+      );
+      return;
+    case "waterSpiritAction":
+      dispatch(damageFaceOwner(el.isBusy.actionDamage));
+      return;
     default:
       return;
   }

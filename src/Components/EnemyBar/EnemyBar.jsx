@@ -33,7 +33,7 @@ const EnemyBar = ({ enemy, owner }) => {
   const endRoundHandlerPlayer = () => {
     allCardInBoardPlayer.map((el) => {
       if (el.isBusy && el.isBusy.actionOnEnd) {
-        dispatch(helperEndAction(el));
+        helperEndAction(el, dispatch);
       }
     });
   };

@@ -10,7 +10,8 @@ import {
 import { Slot } from "./Slot/Slot";
 import { useEffect, useRef } from "react";
 import helperStartAction from "../../helpers/HeplerStartAction";
-import helperSpellAction from "../../helpers/HelperSpellAction";
+import helperSpellActionComputer from "../../helpers/helperSpellActionComputer";
+import helperSpellActionPlayer from "../../helpers/helperSpellActionPlayer";
 
 const Board = ({ board, enemy, allCardPlayer, allCardComputer }) => {
   const activeCard = useSelector((state) => state.spellBook.choiceCard);
@@ -48,11 +49,36 @@ const Board = ({ board, enemy, allCardPlayer, allCardComputer }) => {
         helperStartAction(ref.current, id, dispatch, board);
       }
     }
-    if (ref.current !== null && ref.current.type === "spell" && enemy) {
+    if (
+      ref.current !== null &&
+      ref.current.type === "spell" &&
+      ref.current.focus === "computer" &&
+      enemy
+    ) {
       dispatch(
         setManaElement({ name: refElement.current, count: ref.current.price })
       );
-      helperSpellAction(
+      dispatch(setActiveCard(null));
+      helperSpellActionComputer(
+        ref.current,
+        board,
+        id,
+        dispatch,
+        bookMana,
+        allCardPlayer
+      );
+    }
+    if (
+      ref.current !== null &&
+      ref.current.type === "spell" &&
+      ref.current.focus === "owner" &&
+      !enemy
+    ) {
+      dispatch(
+        setManaElement({ name: refElement.current, count: ref.current.price })
+      );
+      dispatch(setActiveCard(null));
+      helperSpellActionPlayer(
         ref.current,
         board,
         id,
@@ -62,7 +88,6 @@ const Board = ({ board, enemy, allCardPlayer, allCardComputer }) => {
       );
     }
   };
-  console.log(board, 111);
   return (
     <div className={S.body}>
       <Slot enemy={enemy} el={board[0]} handler={handler} bookMana={bookMana} />

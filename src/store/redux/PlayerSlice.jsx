@@ -5,6 +5,7 @@ import goblin from "../../access/img/cards/fire/goblin.png";
 import fireWall from "../../access/img/cards/fire/fireWall.png";
 import board from "../../Components/Board/Board";
 import computerSlice from "./ComputerSlice";
+import { calculatePercentage } from "../../helpers/calculatePercentage";
 const PlayerSlice = createSlice({
   name: "Player",
   initialState: {
@@ -12,6 +13,7 @@ const PlayerSlice = createSlice({
     avatar: avatar,
     infoCard: null,
     hp: 10,
+    defence: 0,
     board: [
       {
         id: 1,
@@ -54,6 +56,12 @@ const PlayerSlice = createSlice({
           return el;
         }
       });
+    },
+    damageFaceOwner(state, { payload }) {
+      state.hp -= calculatePercentage(payload, state.defence, false);
+    },
+    setDefenceOwner(state, { payload }) {
+      state.defence = payload;
     },
 
     addNearbyDamage(state, { payload }) {
@@ -184,9 +192,12 @@ const PlayerSlice = createSlice({
       });
     },
     idDamageComputer(state, { payload }) {
+      console.log(payload, state.defence);
       state.board = state.board.map((el) => {
         if (el.id === payload.id && el.isBusy === null) {
-          state.hp = state.hp - payload.attack;
+          state.hp =
+            state.hp -
+            calculatePercentage(payload.attack, state.defence, false);
         }
         if (el.id === payload.id && el.isBusy) {
           return {
@@ -199,7 +210,6 @@ const PlayerSlice = createSlice({
       });
     },
     damageThisUnit(state, { payload }) {
-      console.log(payload);
       state.board = state.board.map((el) => {
         if (el.id === payload.id - 1 && el.isBusy) {
           return {
@@ -217,7 +227,6 @@ const PlayerSlice = createSlice({
       });
     },
     setDamageAllUnits(state, { payload }) {
-      console.log(payload);
       state.board = state.board.map((el) => {
         if (el.isBusy) {
           return {
@@ -264,5 +273,7 @@ export const {
   setDamageAllUnits,
   damageAllOwner,
   setDamageSlot,
+  damageFaceOwner,
+  setDefenceOwner,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;

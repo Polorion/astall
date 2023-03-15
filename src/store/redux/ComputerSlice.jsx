@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import avatar from "../../access/img/avatar.jpg";
 import ragnaros from "../../access/img/cards/ragnaros.png";
+import frozenFairy from "../../access/img/cards/water/frozenFairy.png";
 import goblin from "../../access/img/cards/fire/goblin.png";
 import fireWall from "../../access/img/cards/fire/fireWall.png";
 const ComputerSlice = createSlice({
@@ -76,7 +77,34 @@ const ComputerSlice = createSlice({
       },
       {
         id: 3,
-        isBusy: null,
+        isBusy: {
+          name: "Замершая фея",
+          isActive: false,
+          type: "card",
+          element: "вода",
+          focus: "owner",
+          actionOnStart: "waterDefenderAction",
+          actionOnDeath: null,
+          actionOnEnd: null,
+          actionSpell: null,
+          actionIncreaseMana: 2,
+          actionDamageSpell: null,
+          dependsOnMana: false,
+          actionDamage: null,
+          spellImmunity: true,
+          attack: 4,
+          price: 4,
+          id: 16,
+          hp: 12,
+          img: frozenFairy,
+          description:
+            "\t\n" +
+            "Замершая фея\n" +
+            "Водное существо, стоимость 4\n" +
+            "Атака 4, жизнь 12\n" +
+            "Замершая фея не получает урона\n" +
+            "от заклинаний и способностей существ.",
+        },
         isAttack: false,
       },
       {
@@ -108,8 +136,9 @@ const ComputerSlice = createSlice({
       });
     },
     damageAll(state, { payload }) {
+      console.log(payload);
       state.board = state.board.map((el) => {
-        if (el.isBusy) {
+        if (el.isBusy && !el.isBusy.spellImmunity) {
           return {
             ...el,
             isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload },
@@ -144,7 +173,7 @@ const ComputerSlice = createSlice({
     },
     damageMeteor(state, { payload }) {
       state.board = state.board.map((el) => {
-        if (el.isBusy) {
+        if (el.isBusy && !el.isBusy.spellImmunity) {
           return {
             ...el,
             isBusy: {
