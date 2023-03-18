@@ -3,6 +3,7 @@ import * as React from "react";
 import {
   addCurrentMana,
   addMana,
+  setAllManaBook,
   setManaBook,
 } from "../store/redux/SpellBookSlice";
 import {
@@ -17,10 +18,23 @@ import {
   setGoToAttack,
   setSpellImmunity,
 } from "../store/redux/PlayerSlice";
-import { damageAll } from "../store/redux/ComputerSlice";
+import {
+  damageAll,
+  damageComputerOwner,
+  setAllManaBookComputer,
+} from "../store/redux/ComputerSlice";
 
 const helperStartAction = (card, idSlot, dispatch, manaBookCount) => {
+  const currentElementCountMana = manaBookCount.find(
+    (el) => el.name === card.element
+  ).count;
   switch (card.actionOnStart) {
+    case "griffinAction":
+      if (currentElementCountMana >= 5) {
+        dispatch(damageComputerOwner(card.actionDamage));
+      }
+
+      return;
     case "damageOwner":
       dispatch(damageIsOwner({ id: idSlot, damage: card.actionDamage }));
       return;
@@ -61,6 +75,15 @@ const helperStartAction = (card, idSlot, dispatch, manaBookCount) => {
       dispatch(healOwner({ hp: card.actionDamage }));
 
       return;
+    case "masterMagickAction":
+      dispatch(setAllManaBook({ type: "add", card }));
+
+      return;
+    case "mediumAction":
+      dispatch(setAllManaBookComputer({ type: "add", card }));
+
+      return;
+
     case "addDamageAllUnit":
       dispatch(setDamageAllUnits({ action: card.actionDamage, type: "add" }));
       return;

@@ -1,8 +1,7 @@
-export function calculatePercentage(num, percent, plus = true) {
-  console.log(num, percent);
+export function calculatePercentage(num, percent, add, plus = true) {
   if (plus) {
-    return Math.ceil(num + (percent / 100) * num);
+    return Math.ceil(num + (percent / 100) * num + add);
   } else {
-    return Math.ceil(num - (percent / 100) * num);
+    return Math.ceil(num - (percent / 100) * num + add);
   }
 }

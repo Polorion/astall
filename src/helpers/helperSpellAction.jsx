@@ -4,12 +4,13 @@ import {
   damageAll,
   damageComputerOwner,
   damageMeteor,
+  damageOneUnit,
 } from "../store/redux/ComputerSlice";
 import { damageAllOwner, damageIsOwner } from "../store/redux/PlayerSlice";
 import { addMana } from "../store/redux/SpellBookSlice";
 import { calculatePercentage } from "./calculatePercentage";
 
-const helperSpellActionComputer = (
+const helperSpellAction = (
   card,
   board,
   id,
@@ -20,24 +21,62 @@ const helperSpellActionComputer = (
   const countMagicDragonInBoard = allCardPlayer.filter(
     (el) => el.isBusy?.name === "Магический дракон"
   ).length;
+  const countSmallFairy = allCardPlayer.filter(
+    (el) => el.isBusy?.name === "Маленькая фея"
+  ).length;
   const fireMana = bookMana.filter((el) => el.name === "огонь")[0].count;
   switch (card.actionSpell) {
+    case "meditationAction":
+      dispatch(
+        addMana({
+          action: card.actionIncreaseMana,
+          type: "вода",
+        })
+      );
+      return;
+
     case "fireWave":
       dispatch(
         damageAll(
           calculatePercentage(
             card.actionDamageSpell,
-            50 * countMagicDragonInBoard
+            50 * countMagicDragonInBoard,
+            countSmallFairy
           )
         )
       );
+      return;
+    case "thunderSpell":
+      if (board[id - 1].isBusy) {
+        dispatch(
+          damageOneUnit({
+            id,
+            damage: calculatePercentage(
+              card.actionDamageSpell,
+              50 * countMagicDragonInBoard,
+              countSmallFairy
+            ),
+          })
+        );
+      }
+      dispatch(
+        damageComputerOwner(
+          calculatePercentage(
+            card.actionDamageSpell,
+            50 * countMagicDragonInBoard,
+            countSmallFairy
+          )
+        )
+      );
+
       return;
     case "acidRain":
       dispatch(
         damageAll(
           calculatePercentage(
             card.actionDamageSpell,
-            50 * countMagicDragonInBoard
+            50 * countMagicDragonInBoard,
+            countSmallFairy
           )
         )
       );
@@ -45,7 +84,8 @@ const helperSpellActionComputer = (
         damageAllOwner(
           calculatePercentage(
             card.actionDamageSpell,
-            50 * countMagicDragonInBoard
+            50 * countMagicDragonInBoard,
+            countSmallFairy
           )
         )
       );
@@ -54,17 +94,29 @@ const helperSpellActionComputer = (
     case "armageddonAction":
       dispatch(
         damageAll(
-          calculatePercentage(fireMana + 11, 50 * countMagicDragonInBoard)
+          calculatePercentage(
+            fireMana + 11,
+            50 * countMagicDragonInBoard,
+            countSmallFairy
+          )
         )
       );
       dispatch(
         damageAllOwner(
-          calculatePercentage(fireMana + 11, 50 * countMagicDragonInBoard)
+          calculatePercentage(
+            fireMana + 11,
+            50 * countMagicDragonInBoard,
+            countSmallFairy
+          )
         )
       );
       dispatch(
         damageComputerOwner(
-          calculatePercentage(fireMana + 11, 50 * countMagicDragonInBoard)
+          calculatePercentage(
+            fireMana + 11,
+            50 * countMagicDragonInBoard,
+            countSmallFairy
+          )
         )
       );
 
@@ -75,11 +127,13 @@ const helperSpellActionComputer = (
           damageMeteor({
             actionOne: calculatePercentage(
               card.actionDamageSpell[0],
-              50 * countMagicDragonInBoard
+              50 * countMagicDragonInBoard,
+              countSmallFairy
             ),
             actionTwo: calculatePercentage(
               card.actionDamageSpell[1],
-              50 * countMagicDragonInBoard
+              50 * countMagicDragonInBoard,
+              countSmallFairy
             ),
             id,
           })
@@ -91,4 +145,4 @@ const helperSpellActionComputer = (
   }
 };
 
-export default helperSpellActionComputer;
+export default helperSpellAction;

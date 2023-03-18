@@ -1,6 +1,10 @@
 import { useDispatch } from "react-redux";
 import * as React from "react";
-import { addMana, setManaBook } from "../store/redux/SpellBookSlice";
+import {
+  addMana,
+  setAllManaBook,
+  setManaBook,
+} from "../store/redux/SpellBookSlice";
 import {
   addNearbyDamage,
   damageIsOwner,
@@ -12,7 +16,10 @@ import {
   setSpellImmunity,
   subNearbyDamage,
 } from "../store/redux/PlayerSlice";
-import { damageAll } from "../store/redux/ComputerSlice";
+import {
+  damageAll,
+  setAllManaBookComputer,
+} from "../store/redux/ComputerSlice";
 
 const helperDeathAction = (card, dispatch) => {
   console.log(card);
@@ -22,6 +29,7 @@ const helperDeathAction = (card, dispatch) => {
         setManaBook({ card: card.isBusy, element: "огонь", type: "sub" })
       );
       return;
+
     case "seaTankAction":
       dispatch(
         setDefenceSlot({
@@ -30,6 +38,15 @@ const helperDeathAction = (card, dispatch) => {
           type: "sub",
         })
       );
+      return;
+    case "masterMagickAction":
+      dispatch(setAllManaBook({ type: "sub", card: card.isBusy }));
+
+      return;
+
+    case "mediumAction":
+      dispatch(setAllManaBookComputer({ type: "sub", card: card.isBusy }));
+
       return;
     case "waterCommander":
       dispatch(setGoToAttack({ id: card.id, type: false }));

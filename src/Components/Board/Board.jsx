@@ -10,8 +10,7 @@ import {
 import { Slot } from "./Slot/Slot";
 import { useEffect, useRef } from "react";
 import helperStartAction from "../../helpers/HeplerStartAction";
-import helperSpellActionComputer from "../../helpers/helperSpellActionComputer";
-import helperSpellActionPlayer from "../../helpers/helperSpellActionPlayer";
+import helperSpellAction from "../../helpers/helperSpellAction";
 
 const Board = ({ board, enemy, allCardPlayer, allCardComputer }) => {
   const activeCard = useSelector((state) => state.spellBook.choiceCard);
@@ -46,7 +45,7 @@ const Board = ({ board, enemy, allCardPlayer, allCardComputer }) => {
       dispatch(setCardInBoard({ id, activeCard: ref.current }));
       dispatch(setActiveCard(null));
       if (ref.current.actionOnStart !== null) {
-        helperStartAction(ref.current, id, dispatch, board);
+        helperStartAction(ref.current, id, dispatch, bookMana);
       }
     }
     if (
@@ -59,7 +58,7 @@ const Board = ({ board, enemy, allCardPlayer, allCardComputer }) => {
         setManaElement({ name: refElement.current, count: ref.current.price })
       );
       dispatch(setActiveCard(null));
-      helperSpellActionComputer(
+      helperSpellAction(
         ref.current,
         board,
         id,
@@ -78,7 +77,7 @@ const Board = ({ board, enemy, allCardPlayer, allCardComputer }) => {
         setManaElement({ name: refElement.current, count: ref.current.price })
       );
       dispatch(setActiveCard(null));
-      helperSpellActionPlayer(
+      helperSpellAction(
         ref.current,
         board,
         id,

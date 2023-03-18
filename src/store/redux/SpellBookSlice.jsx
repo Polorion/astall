@@ -20,8 +20,13 @@ import seaSage from "../../access/img/cards/water/seaSage.png";
 import iceGuard from "../../access/img/cards/water/iceGuard.png";
 import seaTank from "../../access/img/cards/water/seaTank.png";
 import acidRain from "../../access/img/cards/water/asidRain.png";
+import medium from "../../access/img/cards/water/medium.png";
 import waterCommander from "../../access/img/cards/water/seaComandor.png";
 import waterElemental from "../../access/img/cards/water/waterElemental.png";
+import masterMagick from "../../access/img/cards/water/masterMagic.png";
+import smallFairy from "../../access/img/cards/wind/smallFairy.png";
+import griffin from "../../access/img/cards/wind/griffin.png";
+import thunder from "../../access/img/cards/wind/thunder.png";
 const SpellBookSlice = createSlice({
   name: "typeBook",
   initialState: {
@@ -591,6 +596,48 @@ const SpellBookSlice = createSlice({
               "лечит хозяину 10 жизни. Увеличивает\n" +
               "на 1 прирост Силы Воды хозяина.",
           },
+          {
+            name: "Властелин магии ",
+            isActive: false,
+            type: "card",
+            element: "вода",
+            actionOnStart: "masterMagickAction",
+            actionOnEnd: null,
+            actionOnDeath: "masterMagickAction",
+            actionSpell: null,
+            actionDamage: null,
+            dependsOnMana: false,
+            actionIncreaseMana: 1,
+            actionDamageSpell: null,
+            attack: 6,
+            price: 11,
+            img: masterMagick,
+            id: 23,
+            hp: 23,
+            description:
+              " Властелин магии Водное существо, стоимость 11 Атака 6, жизнь 23 Властелин магии увеличивает на 1 прирост всех Сил хозяина.",
+          },
+          {
+            name: "Астральный страж",
+            isActive: false,
+            type: "card",
+            element: "вода",
+            actionOnStart: "mediumAction",
+            actionOnEnd: null,
+            actionOnDeath: "mediumAction",
+            actionSpell: null,
+            actionDamage: 1,
+            dependsOnMana: false,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            attack: 1,
+            price: 12,
+            img: medium,
+            id: 24,
+            hp: 18,
+            description:
+              " Астральный страж Водное существо, стоимость 12 Атака 1, жизнь 18 Астральный страж уменьшает на 1 прирост всех Сил противника.",
+          },
         ],
       },
       {
@@ -599,29 +646,79 @@ const SpellBookSlice = createSlice({
         addMana: 1,
         cards: [
           {
-            name: "Отравленный Дождь",
-            id: 20,
+            name: "Маленькая фея",
+            id: 25,
+            isActive: false,
+            type: "card",
+            element: "воздух",
+            focus: "owner",
+            actionOnStart: "smallFairyAction",
+            actionOnDeath: null,
+            actionOnEnd: "smallFairyAction",
+            actionSpell: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 4,
+            price: 1,
+            hp: 12,
+            img: smallFairy,
+            description:
+              " Фея ученик Воздушное существо, стоимость 1 Атака 4, жизнь 12 Фея ученик увеличивает на 1 урон всех заклинаний хозяина.",
+          },
+          {
+            name: "Грифон",
+            id: 26,
+            isActive: false,
+            type: "card",
+            element: "воздух",
+            focus: "owner",
+            actionOnStart: "griffinAction",
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: 5,
+            spellImmunity: false,
+            attack: 3,
+            price: 2,
+            hp: 15,
+            img: griffin,
+            description:
+              " \t\n" +
+              "Грифон\n" +
+              "Воздушное существо, стоимость 2\n" +
+              "Атака 3, жизнь 15\n" +
+              "При входе в игру - наносит\n" +
+              "5 урона противнику, если\n" +
+              "Сила Воздуха хозяина не меньше 5.",
+          },
+          {
+            name: "Молния",
+            id: 27,
             isActive: false,
             type: "spell",
-            element: "вода",
+            element: "воздух",
             focus: "computer",
             actionOnStart: null,
             actionOnDeath: null,
             actionOnEnd: null,
-            actionSpell: "acidRain",
-            actionIncreaseMana: 1,
-            actionDamageSpell: 15,
+            actionSpell: "thunderSpell",
+            actionIncreaseMana: null,
+            actionDamageSpell: 6,
             dependsOnMana: false,
             actionDamage: null,
             spellImmunity: false,
             attack: 0,
-            price: 8,
+            price: 3,
             hp: 0,
-            img: acidRain,
+            img: thunder,
             description:
-              "Отравленный Дождь Водное заклинание, стоимость 8\n" +
-              "Наносит 15 урона по всем существам.\n" +
-              "Уменьшает на 1 все Силы соперника.",
+              "Молния Воздушное заклинание, стоимость 3 Наносит 6 урона выбранному существу противника и самому противнику.",
           },
         ],
       },
@@ -648,6 +745,21 @@ const SpellBookSlice = createSlice({
           }
         } else {
           return el;
+        }
+      });
+    },
+    setAllManaBook(state, { payload }) {
+      state.book = state.book.map((el) => {
+        if (payload.type === "add") {
+          return {
+            ...el,
+            addMana: el.addMana + payload.card.actionIncreaseMana,
+          };
+        } else {
+          return {
+            ...el,
+            addMana: el.addMana - payload.card.actionIncreaseMana,
+          };
         }
       });
     },
@@ -701,5 +813,6 @@ export const {
   setManaElement,
   addMana,
   addCurrentMana,
+  setAllManaBook,
 } = SpellBookSlice.actions;
 export default SpellBookSlice.reducer;

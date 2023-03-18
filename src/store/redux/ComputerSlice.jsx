@@ -197,6 +197,36 @@ const ComputerSlice = createSlice({
         }
       });
     },
+    setAllManaBookComputer(state, { payload }) {
+      console.log(payload);
+      state.bookMana = state.bookMana.map((el) => {
+        if (payload.type === "add") {
+          return {
+            ...el,
+            addMana: el.addMana - payload.card.actionDamage,
+          };
+        } else {
+          return {
+            ...el,
+            addMana: el.addMana + payload.card.actionDamage,
+          };
+        }
+      });
+    },
+
+    damageOneUnit(state, { payload }) {
+      console.log(payload);
+      state.board = state.board.map((el) => {
+        if (el.id === payload.id) {
+          return {
+            ...el,
+            isBusy: { ...el.isBusy, hp: (el.isBusy.hp -= payload.damage) },
+          };
+        } else {
+          return el;
+        }
+      });
+    },
     deathComputerSlot(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload) {
@@ -221,5 +251,7 @@ export const {
   damageAll,
   damageMeteor,
   damageComputerOwner,
+  setAllManaBookComputer,
+  damageOneUnit,
 } = ComputerSlice.actions;
 export default ComputerSlice.reducer;
