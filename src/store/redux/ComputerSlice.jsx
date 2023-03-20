@@ -142,6 +142,18 @@ const ComputerSlice = createSlice({
     },
     damageAll(state, { payload }) {
       state.board = state.board.map((el) => {
+        if (el.isBusy) {
+          return {
+            ...el,
+            isBusy: { ...el.isBusy, hp: el.isBusy.hp - payload },
+          };
+        } else {
+          return el;
+        }
+      });
+    },
+    damageAllSpell(state, { payload }) {
+      state.board = state.board.map((el) => {
         if (el.isBusy && !el.spellImmunity) {
           return {
             ...el,
@@ -215,12 +227,23 @@ const ComputerSlice = createSlice({
     },
 
     damageOneUnit(state, { payload }) {
-      console.log(payload);
       state.board = state.board.map((el) => {
         if (el.id === payload.id) {
           return {
             ...el,
             isBusy: { ...el.isBusy, hp: (el.isBusy.hp -= payload.damage) },
+          };
+        } else {
+          return el;
+        }
+      });
+    },
+    killUnit(state, { payload }) {
+      state.board = state.board.map((el) => {
+        if (el.id === payload.id && el.isBusy && !el.spellImmunity) {
+          return {
+            ...el,
+            isBusy: null,
           };
         } else {
           return el;
@@ -253,5 +276,7 @@ export const {
   damageComputerOwner,
   setAllManaBookComputer,
   damageOneUnit,
+  damageAllSpell,
+  killUnit,
 } = ComputerSlice.actions;
 export default ComputerSlice.reducer;

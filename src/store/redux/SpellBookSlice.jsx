@@ -27,6 +27,14 @@ import masterMagick from "../../access/img/cards/water/masterMagic.png";
 import smallFairy from "../../access/img/cards/wind/smallFairy.png";
 import griffin from "../../access/img/cards/wind/griffin.png";
 import thunder from "../../access/img/cards/wind/thunder.png";
+import oldFairy from "../../access/img/cards/wind/oldRairy.png";
+import wallOfLightning from "../../access/img/cards/wind/wallOfLightning.png";
+import lightningStrike from "../../access/img/cards/wind/lightningStrike.png";
+import phoenix from "../../access/img/cards/wind/phoenix.png";
+import chainLightning from "../../access/img/cards/wind/chainLightning.png";
+import thundercloud from "../../access/img/cards/wind/thundercloud.png";
+import tornado from "../../access/img/cards/wind/tornado.png";
+import AirElemental from "../../access/img/cards/wind/AirElemental.png";
 const SpellBookSlice = createSlice({
   name: "typeBook",
   initialState: {
@@ -35,7 +43,7 @@ const SpellBookSlice = createSlice({
     book: [
       {
         name: "огонь",
-        count: 100,
+        count: 9,
         addMana: 1,
         cards: [
           {
@@ -719,6 +727,249 @@ const SpellBookSlice = createSlice({
             img: thunder,
             description:
               "Молния Воздушное заклинание, стоимость 3 Наносит 6 урона выбранному существу противника и самому противнику.",
+          },
+          {
+            name: "Фей старец",
+            id: 28,
+            isActive: false,
+            type: "card",
+            element: "воздух",
+            focus: "owner",
+            actionOnStart: "oldFairyAction",
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: 10,
+            spellImmunity: false,
+            attack: 4,
+            price: 4,
+            hp: 19,
+            img: oldFairy,
+            description:
+              "\t\n" +
+              "Фей старец\n" +
+              "Воздушное существо, стоимость 4\n" +
+              "Атака 4, жизнь 19\n" +
+              "Когда фей старец призван, он лечит\n" +
+              "хозяину количество здоровья,\n" +
+              "равное Силе Земли хозяина,\n" +
+              "но не более 10 здоровья.",
+          },
+          {
+            name: "Стена молний",
+            id: 29,
+            isActive: false,
+            type: "card",
+            element: "воздух",
+            focus: "owner",
+            actionOnStart: null,
+            actionOnDeath: null,
+            actionOnEnd: "wallOfLightningAction",
+            actionSpell: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: 4,
+            spellImmunity: false,
+            attack: 0,
+            price: 5,
+            hp: 25,
+            img: wallOfLightning,
+            description:
+              " Стена молний Воздушное существо, стоимость 5 Атака 0, жизнь 28 Стена молний наносит 4 урона противнику каждый ход.",
+          },
+          {
+            name: "Удар молнией",
+            id: 30,
+            isActive: false,
+            type: "spell",
+            element: "воздух",
+            focus: "computer",
+            actionOnStart: null,
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: "lightningStrikeAction",
+            actionIncreaseMana: null,
+            actionDamageSpell: 5,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 0,
+            price: 6,
+            hp: 0,
+            img: lightningStrike,
+            description:
+              " Удар молнией\n" +
+              "Воздушное заклинание, стоимость 6\n" +
+              "Наносит (5+Сила Воздуха мага)\n" +
+              "урона противнику.",
+          },
+          {
+            name: "Феникс",
+            id: 31,
+            isActive: false,
+            type: "card",
+            element: "воздух",
+            focus: "owner",
+            actionOnStart: null,
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: null,
+            respawn: true,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 7,
+            price: 7,
+            hp: 16,
+            img: phoenix,
+            description:
+              " Феникс Воздушное существо, стоимость 7 Атака 7, жизнь 16 Каждый раз, когда феникс умирает, если Сила Огня хозяина 10 либо выше, то феникс возрождается.",
+          },
+          {
+            name: "Цепная молния",
+            id: 32,
+            isActive: false,
+            type: "spell",
+            element: "воздух",
+            focus: "computer",
+            actionOnStart: null,
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: "chainLightningAction",
+            actionIncreaseMana: null,
+            actionDamageSpell: 9,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 0,
+            price: 8,
+            hp: 0,
+            img: chainLightning,
+            description:
+              "\t\n" +
+              "Цепная молния\n" +
+              "Воздушное заклинание, стоимость 8\n" +
+              "Наносит 9 урона противнику\n" +
+              "и всем его существам.",
+          },
+          {
+            name: "Грозовая туча",
+            id: 33,
+            isActive: false,
+            type: "card",
+            element: "воздух",
+            focus: "owner",
+            actionOnStart: null,
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: 9,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 4,
+            price: 9,
+            hp: 20,
+            img: thundercloud,
+            description:
+              "Грозовая туча Воздушное существо, стоимость 9 Атака 4, жизнь 20 При атаке грозовая туча наносит урон сразу всем существам противника и самому противнику.",
+          },
+          {
+            name: "Торнадо",
+            id: 34,
+            isActive: false,
+            type: "spell",
+            element: "воздух",
+            focus: "computer",
+            actionOnStart: null,
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: "tornadoAction",
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 0,
+            price: 10,
+            hp: 0,
+            img: tornado,
+            description:
+              "Торнадо\n" +
+              "Воздушное заклинание, стоимость 10\n" +
+              "Уничтожает выбранное\n" +
+              "существо противника.",
+          },
+          {
+            name: "Воздушный элементаль",
+            id: 35,
+            isActive: false,
+            type: "card",
+            element: "воздух",
+            actionOnStart: "AirElementalAction",
+            actionOnEnd: null,
+            actionOnDeath: "AirElementalAction",
+            actionSpell: null,
+            actionDamage: 8,
+            dependsOnMana: true,
+            actionIncreaseMana: 1,
+            actionDamageSpell: null,
+            attack: 0,
+            price: 11,
+            img: AirElemental,
+            hp: 44,
+            description:
+              "\t\n" +
+              "Воздушное существо, стоимость 11, атака\n" +
+              "равна Силе Воздуха хозяина, жизнь 44\n" +
+              "Когда воздушный элементаль призван,\n" +
+              "он наносит 8 урона противнику.\n" +
+              "Увеличивает прирост\n" +
+              "Силы Воздуха хозяина на 1",
+          },
+        ],
+      },
+      {
+        name: "земля",
+        count: 10,
+        addMana: 1,
+        cards: [
+          {
+            name: "Фе1й старец",
+            id: 218,
+            isActive: false,
+            type: "card",
+            element: "воздух",
+            focus: "owner",
+            actionOnStart: "oldFairyAction",
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: null,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            dependsOnMana: false,
+            actionDamage: 10,
+            spellImmunity: false,
+            attack: 4,
+            price: 4,
+            hp: 19,
+            img: oldFairy,
+            description:
+              "\t\n" +
+              "Фей старец\n" +
+              "Воздушное существо, стоимость 4\n" +
+              "Атака 4, жизнь 19\n" +
+              "Когда фей старец призван, он лечит\n" +
+              "хозяину количество здоровья,\n" +
+              "равное Силе Земли хозяина,\n" +
+              "но не более 10 здоровья.",
           },
         ],
       },

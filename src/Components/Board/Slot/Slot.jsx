@@ -4,12 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import stub from "../../../access/img/zaglushka.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  damageAll,
+  damageComputerOwner,
   deathComputerSlot,
   idDamage,
 } from "../../../store/redux/ComputerSlice";
 import {
   deathSlot,
   idDamageComputer,
+  respawnUnit,
   setDamageSlot,
   setInfoCard,
 } from "../../../store/redux/PlayerSlice";
@@ -41,7 +44,15 @@ export const Slot = React.memo(
     const refHP = useRef();
     useEffect(() => {
       if (props.el.isAttack && props.el.isBusy !== null && !props.enemy) {
-        dispatch(idDamage({ id: props.el.id, attack: props.el.isBusy.attack }));
+        if (props.el.isBusy.name === "Грозовая туча") {
+          console.log(props.el.isBusy);
+          dispatch(damageAll(props.el.isBusy.attack));
+          dispatch(damageComputerOwner(props.el.isBusy.attack));
+        } else {
+          dispatch(
+            idDamage({ id: props.el.id, attack: props.el.isBusy.attack })
+          );
+        }
       }
       if (props.el.isAttack && props.el.isBusy !== null && props.enemy) {
         dispatch(
@@ -50,7 +61,13 @@ export const Slot = React.memo(
       }
     }, [props.el.isAttack]);
     useEffect(() => {
-      if (props.el.isBusy?.hp <= 0) {
+      if (
+        props.el.isBusy?.hp <= 0 &&
+        props.el.isBusy.respawn &&
+        props.bookMana.find((el) => el.name === "огонь").count >= 10
+      ) {
+        dispatch(respawnUnit(1));
+      } else if (props.el.isBusy?.hp <= 0) {
         setTimeout(() => {
           if (!props.enemy) {
             dispatch(deathSlot(props.el.id));

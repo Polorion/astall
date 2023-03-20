@@ -56,7 +56,6 @@ const EnemyBar = ({ enemy, owner }) => {
     let numberEmptyCarInBoard = 0;
     let numberActiveCarInBoard = 0;
     allCardPlayer.map((el, i) => {
-      console.log(el);
       if (!el.isBusy) {
         numberEmptyCarInBoard = numberEmptyCarInBoard + 1;
       } else {

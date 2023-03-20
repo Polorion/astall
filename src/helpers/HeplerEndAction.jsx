@@ -6,9 +6,10 @@ import {
   damageIsOwner,
   damageThisUnit,
 } from "../store/redux/PlayerSlice";
-import { damageAll } from "../store/redux/ComputerSlice";
+import { damageAll, damageComputerOwner } from "../store/redux/ComputerSlice";
 
 const helperEndAction = (el, dispatch) => {
+  console.log(el);
   switch (el.isBusy.actionOnEnd) {
     case "damageThisUnit":
       dispatch(
@@ -17,6 +18,9 @@ const helperEndAction = (el, dispatch) => {
           damage: el.isBusy.actionDamage,
         })
       );
+      return;
+    case "wallOfLightningAction":
+      dispatch(damageComputerOwner(el.isBusy.actionDamage));
       return;
     case "waterSpiritAction":
       dispatch(damageFaceOwner(el.isBusy.actionDamage));

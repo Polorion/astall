@@ -5,6 +5,8 @@ import {
   damageComputerOwner,
   damageMeteor,
   damageOneUnit,
+  damageAllSpell,
+  killUnit,
 } from "../store/redux/ComputerSlice";
 import { damageAllOwner, damageIsOwner } from "../store/redux/PlayerSlice";
 import { addMana } from "../store/redux/SpellBookSlice";
@@ -25,6 +27,7 @@ const helperSpellAction = (
     (el) => el.isBusy?.name === "Маленькая фея"
   ).length;
   const fireMana = bookMana.filter((el) => el.name === "огонь")[0].count;
+  const windMana = bookMana.filter((el) => el.name === "воздух")[0].count;
   switch (card.actionSpell) {
     case "meditationAction":
       dispatch(
@@ -34,12 +37,46 @@ const helperSpellAction = (
         })
       );
       return;
+    case "tornadoAction":
+      dispatch(killUnit({ id }));
+      return;
 
     case "fireWave":
       dispatch(
-        damageAll(
+        damageAllSpell(
           calculatePercentage(
             card.actionDamageSpell,
+            50 * countMagicDragonInBoard,
+            countSmallFairy
+          )
+        )
+      );
+      return;
+    case "chainLightningAction":
+      dispatch(
+        damageAllSpell(
+          calculatePercentage(
+            card.actionDamageSpell,
+            50 * countMagicDragonInBoard,
+            countSmallFairy
+          )
+        )
+      );
+      dispatch(
+        damageComputerOwner(
+          calculatePercentage(
+            card.actionDamageSpell,
+            50 * countMagicDragonInBoard,
+            countSmallFairy
+          )
+        )
+      );
+      return;
+    case "lightningStrikeAction":
+      dispatch(
+        damageComputerOwner(
+          calculatePercentage(
+            card.actionDamageSpell + windMana,
             50 * countMagicDragonInBoard,
             countSmallFairy
           )
@@ -72,7 +109,7 @@ const helperSpellAction = (
       return;
     case "acidRain":
       dispatch(
-        damageAll(
+        damageAllSpell(
           calculatePercentage(
             card.actionDamageSpell,
             50 * countMagicDragonInBoard,
@@ -93,7 +130,7 @@ const helperSpellAction = (
       return;
     case "armageddonAction":
       dispatch(
-        damageAll(
+        damageAllSpell(
           calculatePercentage(
             fireMana + 11,
             50 * countMagicDragonInBoard,

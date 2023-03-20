@@ -24,6 +24,7 @@ const PlayerSlice = createSlice({
         defence: 0,
         spellImmunity: false,
         attackFirstRound: false,
+        startHP: null,
       },
       {
         id: 2,
@@ -33,6 +34,7 @@ const PlayerSlice = createSlice({
         defence: 0,
         spellImmunity: false,
         attackFirstRound: false,
+        startHP: null,
       },
       {
         id: 3,
@@ -42,6 +44,7 @@ const PlayerSlice = createSlice({
         defence: 0,
         spellImmunity: false,
         attackFirstRound: false,
+        startHP: null,
       },
       {
         id: 4,
@@ -51,6 +54,7 @@ const PlayerSlice = createSlice({
         defence: 0,
         spellImmunity: false,
         attackFirstRound: false,
+        startHP: null,
       },
       {
         id: 5,
@@ -60,6 +64,7 @@ const PlayerSlice = createSlice({
         defence: 0,
         spellImmunity: false,
         attackFirstRound: false,
+        startHP: null,
       },
     ],
   },
@@ -143,7 +148,12 @@ const PlayerSlice = createSlice({
           if (el.id === payload.id) {
             const newCard = { ...payload.activeCard };
             newCard.attack = newCard.attack + state.board[el.id - 1].addDamage;
-            return { ...el, isBusy: newCard, animation: false };
+            return {
+              ...el,
+              startHP: newCard.hp,
+              isBusy: newCard,
+              animation: false,
+            };
           } else {
             return el;
           }
@@ -159,6 +169,7 @@ const PlayerSlice = createSlice({
         if (el.id === payload.id) {
           return {
             ...el,
+
             isBusy: { ...el.isBusy, attack: el.addDamage + payload.action },
           };
         } else {
@@ -302,6 +313,16 @@ const PlayerSlice = createSlice({
         }
       });
     },
+    respawnUnit(state, { payload }) {
+      console.log(state.board);
+      state.board = state.board.map((el) => {
+        if (el.id === payload) {
+          return { ...el, isBusy: { ...el.isBusy, hp: el.startHP } };
+        } else {
+          return el;
+        }
+      });
+    },
     setGoToAttack(state, { payload }) {
       state.board = state.board.map((el) => {
         if (el.id === payload.id - 1) {
@@ -337,5 +358,6 @@ export const {
   setDefenceSlot,
   setGoToAttack,
   healOwner,
+  respawnUnit,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;

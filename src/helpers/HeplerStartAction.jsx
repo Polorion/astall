@@ -25,10 +25,15 @@ import {
 } from "../store/redux/ComputerSlice";
 
 const helperStartAction = (card, idSlot, dispatch, manaBookCount) => {
+  const earth = manaBookCount.find((el) => el.name === "земля").count;
   const currentElementCountMana = manaBookCount.find(
     (el) => el.name === card.element
   ).count;
   switch (card.actionOnStart) {
+    case "oldFairyAction":
+      dispatch(healOwner({ hp: earth > 10 ? 10 : earth }));
+
+      return;
     case "griffinAction":
       if (currentElementCountMana >= 5) {
         dispatch(damageComputerOwner(card.actionDamage));
@@ -69,6 +74,10 @@ const helperStartAction = (card, idSlot, dispatch, manaBookCount) => {
     case "damageAllUnitEnemy":
       dispatch(setManaBook({ card, element: "огонь", type: "add" }));
       dispatch(damageAll(card.actionDamage));
+      return;
+    case "AirElementalAction":
+      dispatch(setManaBook({ card, element: "воздух", type: "add" }));
+      dispatch(damageComputerOwner(card.actionDamage));
       return;
     case "elementalWaterAction":
       dispatch(setManaBook({ card, element: "вода", type: "add" }));

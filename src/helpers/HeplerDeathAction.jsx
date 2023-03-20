@@ -56,6 +56,11 @@ const helperDeathAction = (card, dispatch) => {
         setManaBook({ card: card.isBusy, element: "воздух", type: "sub" })
       );
       return;
+    case "AirElementalAction":
+      dispatch(
+        setManaBook({ card: card.isBusy, element: "воздух", type: "sub" })
+      );
+      return;
     case "frozenFairy":
       dispatch(setSpellImmunity({ id: card.id, type: false }));
       return;
