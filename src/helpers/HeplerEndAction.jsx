@@ -5,6 +5,7 @@ import {
   damageFaceOwner,
   damageIsOwner,
   damageThisUnit,
+  healOwner,
 } from "../store/redux/PlayerSlice";
 import { damageAll, damageComputerOwner } from "../store/redux/ComputerSlice";
 
@@ -18,6 +19,9 @@ const helperEndAction = (el, dispatch) => {
           damage: el.isBusy.actionDamage,
         })
       );
+      return;
+    case "ElfForestAction":
+      dispatch(healOwner({ hp: el.isBusy.actionDamage }));
       return;
     case "wallOfLightningAction":
       dispatch(damageComputerOwner(el.isBusy.actionDamage));

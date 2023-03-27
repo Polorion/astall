@@ -21,6 +21,7 @@ import {
 import {
   damageAll,
   damageComputerOwner,
+  damageOneUnit,
   setAllManaBookComputer,
 } from "../store/redux/ComputerSlice";
 
@@ -39,6 +40,9 @@ const helperStartAction = (card, idSlot, dispatch, manaBookCount) => {
         dispatch(damageComputerOwner(card.actionDamage));
       }
 
+      return;
+    case "TitanAction":
+      dispatch(damageOneUnit({ id: idSlot, damage: card.actionDamage }));
       return;
     case "damageOwner":
       dispatch(damageIsOwner({ id: idSlot, damage: card.actionDamage }));

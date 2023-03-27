@@ -8,7 +8,12 @@ import {
   damageAllSpell,
   killUnit,
 } from "../store/redux/ComputerSlice";
-import { damageAllOwner, damageIsOwner } from "../store/redux/PlayerSlice";
+import {
+  damageAllOwner,
+  damageIsOwner,
+  healOwner,
+  healUnit,
+} from "../store/redux/PlayerSlice";
 import { addMana } from "../store/redux/SpellBookSlice";
 import { calculatePercentage } from "./calculatePercentage";
 
@@ -41,6 +46,27 @@ const helperSpellAction = (
       dispatch(killUnit({ id }));
       return;
 
+    case "HealLiefAction":
+      dispatch(
+        healOwner({
+          hp: calculatePercentage(
+            card.actionDamageSpell,
+            50 * countMagicDragonInBoard,
+            countSmallFairy
+          ),
+        })
+      );
+      dispatch(
+        healUnit({
+          id: id,
+          action: calculatePercentage(
+            card.actionDamageSpell,
+            50 * countMagicDragonInBoard,
+            countSmallFairy
+          ),
+        })
+      );
+      return;
     case "fireWave":
       dispatch(
         damageAllSpell(

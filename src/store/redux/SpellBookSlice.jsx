@@ -35,6 +35,9 @@ import chainLightning from "../../access/img/cards/wind/chainLightning.png";
 import thundercloud from "../../access/img/cards/wind/thundercloud.png";
 import tornado from "../../access/img/cards/wind/tornado.png";
 import AirElemental from "../../access/img/cards/wind/AirElemental.png";
+import Titan from "../../access/img/cards/wind/titan.png";
+import ElfForest from "../../access/img/cards/Earth/ElfForest.png";
+import HealLief from "../../access/img/cards/Earth/HealLief.png";
 const SpellBookSlice = createSlice({
   name: "typeBook",
   initialState: {
@@ -934,6 +937,27 @@ const SpellBookSlice = createSlice({
               "Увеличивает прирост\n" +
               "Силы Воздуха хозяина на 1",
           },
+          {
+            name: "Титан",
+            id: 36,
+            isActive: false,
+            type: "card",
+            element: "воздух",
+            actionOnStart: "TitanAction",
+            actionOnEnd: null,
+            actionOnDeath: null,
+            actionSpell: null,
+            actionDamage: 15,
+            dependsOnMana: false,
+            actionIncreaseMana: null,
+            actionDamageSpell: null,
+            attack: 9,
+            price: 12,
+            img: Titan,
+            hp: 40,
+            description:
+              "Воздушное существо, стоимость 12 Атака 9, жизнь 40 Когда титан призван, он наносит 15 урона существу противника в слоте напротив.",
+          },
         ],
       },
       {
@@ -942,34 +966,54 @@ const SpellBookSlice = createSlice({
         addMana: 1,
         cards: [
           {
-            name: "Фе1й старец",
-            id: 218,
+            name: "Лесной эльф",
+            id: 37,
             isActive: false,
             type: "card",
-            element: "воздух",
+            element: "земля",
             focus: "owner",
-            actionOnStart: "oldFairyAction",
+            actionOnStart: null,
             actionOnDeath: null,
-            actionOnEnd: null,
+            actionOnEnd: "ElfForestAction",
             actionSpell: null,
             actionIncreaseMana: null,
             actionDamageSpell: null,
             dependsOnMana: false,
-            actionDamage: 10,
+            actionDamage: 3,
             spellImmunity: false,
-            attack: 4,
-            price: 4,
-            hp: 19,
-            img: oldFairy,
+            attack: 2,
+            price: 1,
+            hp: 12,
+            img: ElfForest,
             description:
-              "\t\n" +
-              "Фей старец\n" +
-              "Воздушное существо, стоимость 4\n" +
-              "Атака 4, жизнь 19\n" +
-              "Когда фей старец призван, он лечит\n" +
-              "хозяину количество здоровья,\n" +
-              "равное Силе Земли хозяина,\n" +
-              "но не более 10 здоровья.",
+              " Лесной эльф Существо земли, стоимость 1 Атака 2, жизнь 12 Эльф целитель лечит 3 жизни хозяину каждый ход.",
+          },
+          {
+            name: "Лечение природы",
+            id: 38,
+            isActive: false,
+            type: "spell",
+            element: "земля",
+            focus: "owner",
+            actionOnStart: null,
+            actionOnDeath: null,
+            actionOnEnd: null,
+            actionSpell: "HealLiefAction",
+            actionIncreaseMana: null,
+            actionDamageSpell: 8,
+            dependsOnMana: false,
+            actionDamage: null,
+            spellImmunity: false,
+            attack: 0,
+            price: 2,
+            hp: 0,
+            img: HealLief,
+            description:
+              "Лечение природы\n" +
+              "Заклинание земли, стоимость 2\n" +
+              "Природный ритуал лечит 8 жизни\n" +
+              "выбранному существу и магу,\n" +
+              "сыгравшему это заклинание.",
           },
         ],
       },

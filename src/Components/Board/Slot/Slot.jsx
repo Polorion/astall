@@ -45,7 +45,6 @@ export const Slot = React.memo(
     useEffect(() => {
       if (props.el.isAttack && props.el.isBusy !== null && !props.enemy) {
         if (props.el.isBusy.name === "Грозовая туча") {
-          console.log(props.el.isBusy);
           dispatch(damageAll(props.el.isBusy.attack));
           dispatch(damageComputerOwner(props.el.isBusy.attack));
         } else {
@@ -66,7 +65,8 @@ export const Slot = React.memo(
         props.el.isBusy.respawn &&
         props.bookMana.find((el) => el.name === "огонь").count >= 10
       ) {
-        dispatch(respawnUnit(1));
+        console.log(props);
+        dispatch(respawnUnit(props.el.id));
       } else if (props.el.isBusy?.hp <= 0) {
         setTimeout(() => {
           if (!props.enemy) {

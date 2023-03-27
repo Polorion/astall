@@ -84,6 +84,25 @@ const PlayerSlice = createSlice({
     healOwner(state, { payload }) {
       state.hp += payload.hp;
     },
+    healUnit(state, { payload }) {
+      console.log(payload);
+      state.board = state.board.map((el) => {
+        if (el.id === payload.id) {
+          return {
+            ...el,
+            isBusy: {
+              ...el.isBusy,
+              hp:
+                el.isBusy.hp + payload.action > el.startHP
+                  ? el.startHP
+                  : el.isBusy.hp + payload.action,
+            },
+          };
+        } else {
+          return el;
+        }
+      });
+    },
 
     setDefenceOwner(state, { payload }) {
       state.defence = payload;
@@ -359,5 +378,6 @@ export const {
   setGoToAttack,
   healOwner,
   respawnUnit,
+  healUnit,
 } = PlayerSlice.actions;
 export default PlayerSlice.reducer;
